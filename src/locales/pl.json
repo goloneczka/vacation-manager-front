@@ -1,0 +1,15 @@
+{
+  "app" : "Manager urlopów",
+  "login" : "logowanie",
+  "registration" : "rejestracja",
+  "registerForm" : {
+    "form" : "Formularz rejestracji",
+    "getName" : "Imie i Nazwisko",
+    "getEmail" : " Adres mailowy",
+    "emailNote" : "Na twoja skrzynke pocztowa zostanie wyslany link aktywacyjny.",
+    "getCompanyName" : "Nazwa twojej firmy",
+    "getPasswd" : "Hasło użytkownika",
+    "submit" : "zatwierdź",
+    "accepted" : "na twój email przyjdzie wiadomość z linkiem aktywacyjnym"
+  }
+}
