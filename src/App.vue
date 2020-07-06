@@ -1,19 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import AuthorizationStorage from './core/requests/AuthorizationStorage';
+  import HttpRequest from './core/requests/HttpRequest';
+  import EnterpriseService from "./core/service/EnterpriseService";
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  const baseUrl = 'http://localhost:9090';  // TODO ZMIENIC NA TE ENV'Y
+  export const authorizationStorage = new AuthorizationStorage();
+  export const httpRequest = new HttpRequest(baseUrl, authorizationStorage);
+
+  export const enterpriseService = new EnterpriseService(httpRequest);
+
+  export default {
+   name: 'App',
   }
-}
 </script>
 
 <style>
