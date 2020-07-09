@@ -8,12 +8,15 @@
   import AuthorizationStorage from './core/requests/AuthorizationStorage';
   import HttpRequest from './core/requests/HttpRequest';
   import EnterpriseService from "./core/service/EnterpriseService";
+  import WorkerService from "./core/service/WorkerService";
 
   const baseUrl = 'http://localhost:9090';  // TODO ZMIENIC NA TE ENV'Y
   export const authorizationStorage = new AuthorizationStorage();
   export const httpRequest = new HttpRequest(baseUrl, authorizationStorage);
 
   export const enterpriseService = new EnterpriseService(httpRequest);
+  export const workerService = new WorkerService(httpRequest);
+
 
   export default {
    name: 'App',

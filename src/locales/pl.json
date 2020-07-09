@@ -11,5 +11,13 @@
     "getPasswd" : "Hasło użytkownika",
     "submit" : "zatwierdź",
     "accepted" : "na twój email przyjdzie wiadomość z linkiem aktywacyjnym"
+  },
+  "login" : {
+    "title": "Logowanie",
+    "enterprise" : "przedsiębiorstwo",
+    "login" : "email",
+    "password" : "hasło",
+    "button" : "zatwierdź",
+    "header" : "logowanie"
   }
 }

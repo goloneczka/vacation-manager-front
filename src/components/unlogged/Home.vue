@@ -4,7 +4,7 @@
             <a class="navbar-brand ml-5"> {{$t('app')}} </a>
             <form class="mr-5">
                     <button type="button" class="btn btn-outline-success mr-2" @click="registration()"> {{$t('registration')}} </button>
-                    <button type="button" class="btn btn-outline-success" @click="logging()"> {{$t('login')}} </button>
+                    <button type="button" class="btn btn-outline-success" @click="logging()"> {{$t('login.header')}} </button>
             </form>
         </nav>
     </div>

@@ -1,13 +1,18 @@
+import {AUTHORIZATION, ROLES} from "../Enums";
 
 
 export default class AuthorizationStorage {
 
-    getAuthorization() {
-            return sessionStorage.getItem('authorization');
+    getAuthorization(key) {
+            return sessionStorage.getItem(key);
     }
 
-    setAuthorization(login, password) {
-        sessionStorage.setItem('authorization', `Basic ${btoa(`${login}:${password}`)}`)
+     setAuthorization(login, password) {
+        sessionStorage.setItem(AUTHORIZATION, `Basic ${btoa(`${login}:${password}`)}`)
+    }
+
+    setAuthorizationLevel(role){
+        sessionStorage.setItem(ROLES.ROLE, role)
     }
 
     removeAuthorizationItem(item) {
@@ -18,8 +23,8 @@ export default class AuthorizationStorage {
         sessionStorage.clear();
     }
 
-    isEmpty() {
-        return sessionStorage.getItem('authorization') === null;
+    isEmpty(key) {
+        return sessionStorage.getItem(key) === null;
     }
 
 }

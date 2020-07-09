@@ -1,3 +1,5 @@
+import {AUTHORIZATION} from "../Enums";
+
 export default class HttpRequest {
 
     constructor(baseUrl, authorizationStorage) {
@@ -24,10 +26,10 @@ export default class HttpRequest {
     execute(url, method, data) {
         return fetch(`${this.baseUrl}/${url}`, {
             method: method,
-            headers: !this.authorizationStorage.isEmpty() ?
+            headers: !this.authorizationStorage.isEmpty(AUTHORIZATION) ?
                 new Headers({
                     'Content-Type': 'application/json',
-                    Authorization: this.authorizationStorage.getAuthorization()
+                    Authorization: this.authorizationStorage.getAuthorization(AUTHORIZATION)
                 }) : new Headers({'Content-Type': 'application/json'}),
             credentials: 'same-origin',
             cache: 'no-cache',
@@ -44,6 +46,10 @@ export default class HttpRequest {
                 }
                 return response.json();
             })
+            .catch(reason => { return {
+                status: 400,
+                errors: reason
+            }})
     }
 }
 
