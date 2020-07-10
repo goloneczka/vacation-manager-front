@@ -6,7 +6,6 @@ import {BootstrapVue} from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {routes} from './routes'
-import VueFlashMessage from "vue-flash-message";
 import {authorizationStorage} from "./App";
 import {AUTHORIZATION, ROLES} from "./core/Enums";
 
@@ -14,7 +13,6 @@ Vue.config.productionTip = false
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
-Vue.use(VueFlashMessage);
 
 
 const router = new VueRouter({routes});
