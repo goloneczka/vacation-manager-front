@@ -5,20 +5,16 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "start": "vue-cli-service build --mode prod",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "serve dist/",
+    "deploy": "npm run build && git add dist/ && git commit -am 'Deploy' && git push -f heroku master"
   },
-  "heroku-run-build-script": true,
   "dependencies": {
-    "bootstrap": "^4.4.1",
-    "bootstrap-vue": "^2.7.0",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
-    "vue-i18n": "^8.15.4",
-    "vue-router": "^3.1.6"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.4.6",
+    "@vue/cli-plugin-babel": "^4.4.0",
     "@vue/cli-plugin-eslint": "^4.4.0",
     "@vue/cli-service": "^4.4.0",
     "babel-eslint": "^10.1.0",
