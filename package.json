@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --mode prod",
     "lint": "vue-cli-service lint",
-    "start": "serve dist/",
-    "deploy": "npm run build && git add dist/ && git commit -am 'Deploy' && git push -f heroku master"
+    "start": "vue-cli-service serve "
   },
   "dependencies": {
     "core-js": "^3.6.5",
