@@ -55,7 +55,6 @@
                 this.error = '';
                 authorizationStorage.setAuthorization(this.login + "/" + this.enterprise, this.password);
                 workerService.getWorker(this.login, this.enterprise).then(response => {
-                    console.log(response)
                     if (response.errors) {
                         this.error = response.errors;
                         authorizationStorage.removeAuthorization()
