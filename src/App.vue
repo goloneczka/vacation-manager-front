@@ -10,7 +10,7 @@
   import EnterpriseService from "./core/service/EnterpriseService";
   import WorkerService from "./core/service/WorkerService";
 
-  const baseUrl = 'http://localhost:9090';  // TODO ZMIENIC NA TE ENV'Y
+  const baseUrl = process.env.VUE_APP_BASE_URL
   export const authorizationStorage = new AuthorizationStorage();
   export const httpRequest = new HttpRequest(baseUrl, authorizationStorage);
 
