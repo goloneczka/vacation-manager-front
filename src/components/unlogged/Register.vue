@@ -58,6 +58,7 @@
             sendRegisterForm(e) {
                 this.errors = []
                 this.succes = false;
+                enterpriseService.sendMail().then(data => console.log(data))
                 enterpriseService.addEnterpriseWithCEO(this.name, this.email, this.company, this.passwd)
                     .then(data => {
                         if (data.errors) {
