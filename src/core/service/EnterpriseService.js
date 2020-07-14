@@ -15,5 +15,8 @@ export default class EnterpriseService {
         return this.httpRequest.post("enterprises/enterprise", registerForm)
     }
 
+    sendMail(){
+        return this.httpRequest.post("enterprises/email")
+    }
 
 }
