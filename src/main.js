@@ -15,7 +15,7 @@ Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
 
-let router = new VueRouter({mode: 'history', routes: routes});
+let router = new VueRouter({routes: routes});
 
 router.beforeEach((to, from, next) => {
     if (to.path.includes("/HR") && (authorizationStorage.getAuthorization(ROLES.ROLE) === ROLES.CEO
