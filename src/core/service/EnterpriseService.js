@@ -15,8 +15,8 @@ export default class EnterpriseService {
         return this.httpRequest.post("enterprises/enterprise", registerForm)
     }
 
-    sendMail(){
-        return this.httpRequest.post("enterprises/email")
+    confirmCompanyAndCeo(mail, enterpriseId){
+        return this.httpRequest.put(`enterprises/enterprise/${mail}/${enterpriseId}`)
     }
 
 }

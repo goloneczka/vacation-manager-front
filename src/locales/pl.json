@@ -19,5 +19,11 @@
     "password" : "hasło",
     "button" : "zatwierdź",
     "header" : "logowanie"
+  },
+  "confirm" : {
+    "header" : "potwierdzenie rejestracji",
+    "message" : {
+      "accept" : "etap rejestracji został pomyślnie zakończony"
+    }
   }
 }
