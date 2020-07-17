@@ -7,7 +7,7 @@ import CEOHome from "./components/loged/homes/CEOHome";
 import EmployeeHome from "./components/loged/homes/EmployeeHome";
 
 export const routesNames = {
-    home: '/home',
+    home: '/',
     registerCompany: '/registerCompany',
     login: '/logging',
     newAccount: '/newAccount/:email/:enterpriseId',
@@ -19,7 +19,7 @@ export const routesNames = {
 };
 
 export const routes = [
-    {path: '/', component: Home},
+    {path: routesNames.home, component: Home},
     {path: routesNames.registerCompany, component: Register},
     {path: routesNames.login, component: Login},
     {path: routesNames.newAccount, component: ActivateAccount, props: true},

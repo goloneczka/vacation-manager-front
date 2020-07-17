@@ -1,6 +1,7 @@
 {
   "app" : "Manager urlopów",
   "login" : "logowanie",
+  "logOut" : "wyloguj",
   "registration" : "rejestracja",
   "registerForm" : {
     "form" : "Formularz rejestracji",
