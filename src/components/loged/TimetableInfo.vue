@@ -1,12 +1,12 @@
 <template>
     <div>
-        <H3> TODO </H3>
+        <H3> TIMETABLE INFO </H3>
     </div>
 </template>
 
 <script>
     export default {
-        name: "WorkerHome"
+        name: "TimetableInfo"
     }
 </script>
 
