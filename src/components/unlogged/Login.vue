@@ -34,10 +34,11 @@
 </template>
 <script>
 
-    import {workerService, authorizationStorage} from '../../App'
+    import {workerService, authorizationStorage, enterpriseService} from '../../App'
     import Header from "../Header";
     import Alert from "../Alert";
     import {routesNames} from "../../routes";
+    import {ROLES} from "../../core/Enums";
 
     export default {
         name: 'login',
@@ -59,8 +60,29 @@
                         this.error = response.errors;
                         authorizationStorage.removeAuthorization()
                     } else {
-                        authorizationStorage.setAuthorizationLevel(response.roles[0].name)
-                        this.$router.push(routesNames.loggedWorker)
+                        enterpriseService.getCompanyById(response.enterpriseId).then((response1) => {
+                            if (response.errors) {
+                                this.error = response.errors;
+                                authorizationStorage.removeAuthorization()
+                            } else {
+                                authorizationStorage.setWorkerAuthorization(JSON.stringify({
+                                    ...response,
+                                    enterpriseName: response1.enterpriseName
+                                }))
+                                switch (response.roles[0].name) {
+                                    case ROLES.CEO:
+                                        console.log("IMM !!")
+                                        this.$router.push(routesNames.loggedCEO);
+                                        break;
+                                    case ROLES.HR:
+                                        this.$router.push(routesNames.loggedHR);
+                                        break;
+                                    case ROLES.EMPLOYEE:
+                                        this.$router.push(routesNames.loggedEmployee);
+                                        break;
+                                }
+                            }
+                        })
                     }
                 })
             },

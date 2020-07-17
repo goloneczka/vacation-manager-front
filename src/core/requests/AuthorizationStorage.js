@@ -11,8 +11,8 @@ export default class AuthorizationStorage {
         sessionStorage.setItem(AUTHORIZATION, `Basic ${btoa(`${login}:${password}`)}`)
     }
 
-    setAuthorizationLevel(role){
-        sessionStorage.setItem(ROLES.ROLE, role)
+    setWorkerAuthorization(worker){
+        sessionStorage.setItem(ROLES.WORKER, worker)
     }
 
     removeAuthorizationItem(item) {

@@ -18,10 +18,14 @@ Vue.use(BootstrapVue);
 let router = new VueRouter({routes: routes});
 
 router.beforeEach((to, from, next) => {
-    if (to.path.includes("/HR") && (authorizationStorage.getAuthorization(ROLES.ROLE) === ROLES.CEO
-        || authorizationStorage.getAuthorization(ROLES.ROLE) === ROLES.HR))
+    const maxRole = !authorizationStorage.isEmpty(ROLES.WORKER) ?
+        JSON.parse(authorizationStorage.getAuthorization(ROLES.WORKER)).roles[0].name : 'none'
+
+    if (to.path.includes("/CEO") && maxRole === ROLES.CEO)
         next();
-    else if (to.path.includes("/employee") && !authorizationStorage.isEmpty(ROLES.ROLE))
+    else if (to.path.includes("/HR") && (maxRole === ROLES.CEO || maxRole === ROLES.HR))
+        next();
+    else if (to.path.includes("/employee") && !authorizationStorage.isEmpty(ROLES.WORKER))
         next();
     else if ((!to.path.includes("/HR") && !to.path.includes("/employee")) && authorizationStorage.isEmpty(AUTHORIZATION))
         next();

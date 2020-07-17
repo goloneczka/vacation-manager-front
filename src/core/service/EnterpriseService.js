@@ -19,4 +19,8 @@ export default class EnterpriseService {
         return this.httpRequest.put(`enterprises/enterprise/${mail}/${enterpriseId}`)
     }
 
+    getCompanyById(enterpriseId){
+        return this.httpRequest.get(`enterprises/enterprise/${enterpriseId}`)
+    }
+
 }
