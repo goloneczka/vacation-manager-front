@@ -34,7 +34,6 @@
             }
         },
         created() {
-            console.log(this.selected)
             this.worker = JSON.parse(authorizationStorage.getAuthorization(ROLES.WORKER));
         },
         mounted() {

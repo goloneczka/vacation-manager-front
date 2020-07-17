@@ -22,7 +22,6 @@
         },
         created() {
             this.worker = JSON.parse(authorizationStorage.getAuthorization(ROLES.WORKER));
-            console.log(JSON.parse(authorizationStorage.getAuthorization(ROLES.WORKER)))
         }
     }
 </script>

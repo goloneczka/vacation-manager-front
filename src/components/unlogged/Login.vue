@@ -71,7 +71,6 @@
                                 }))
                                 switch (response.roles[0].name) {
                                     case ROLES.CEO:
-                                        console.log("IMM !!")
                                         this.$router.push(routesNames.loggedCEO);
                                         break;
                                     case ROLES.HR:
