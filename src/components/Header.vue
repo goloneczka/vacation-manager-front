@@ -3,16 +3,26 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand ml-5"> {{$t('app') + " - " + text }} </a>
             <form class="logged" v-if="isLogged">
-                <a class="navbar-brand pl-5"> {{ enterprise }} </a>
+                <a class="navbar-brand mr-5"> {{ enterprise }} </a>
+                <button type="button" class="btn btn-outline-success" @click="logOut()"> {{$t('logOut')}} </button>
             </form>
         </nav>
     </div>
 </template>
 
 <script>
+    import {routesNames} from "../routes";
+    import {authorizationStorage} from "../App";
+
     export default {
         name: "Header",
-        props: ["text", "isLogged", "enterprise"]
+        props: ["text", "isLogged", "enterprise"],
+        methods: {
+            logOut(){
+                authorizationStorage.removeAuthorization()
+                this.$router.push(routesNames.home)
+            }
+        }
     }
 </script>
 
