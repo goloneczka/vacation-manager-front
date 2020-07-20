@@ -4,20 +4,22 @@ export default class EnterpriseService {
         this.httpRequest = httpRequest;
     }
 
-    addEnterpriseWithCEO(name, email, enterprise, passwd){
+    addEnterpriseWithCEO(name, email, enterprise, passwd, hired){
         const registerForm = {
             name : name,
             email : email,
             enterpriseName : enterprise,
             password : passwd,
+            hired: hired,
             occupation : 'CEO'
         }
         return this.httpRequest.post("enterprises/enterprise", registerForm)
     }
 
     confirmCompanyAndCeo(mail, enterpriseId){
-        return this.httpRequest.put(`enterprises/enterprise/${mail}/${enterpriseId}`)
+        return this.httpRequest.put(`enterprises/confirm/${mail}/${enterpriseId}`)
     }
+
 
     getCompanyById(enterpriseId){
         return this.httpRequest.get(`enterprises/enterprise/${enterpriseId}`)

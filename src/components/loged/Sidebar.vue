@@ -1,11 +1,12 @@
 <template>
     <div class="sidebar">
         <a type="button" :id="mappedProperties.isWorkerInfo" @click="emitChosenView($event)">Home</a>
+        <a type="button" :id="mappedProperties.isTimetableInfo" v-if="role === roleCeo || role === roleHR"
+           @click="emitChosenView($event)">HR</a>
+        <a type="button" :id="mappedProperties.isEmployeesInfo" v-if="role === roleCeo || role === roleHR"
+           @click="emitChosenView($event)">EMPLOYEES</a>
         <a type="button" :id="mappedProperties.isCompanySettings" v-if="role === roleCeo"
            @click="emitChosenView($event)">ADMIN</a>
-        <a type="button" :id="mappedProperties.isTimetableInfo" v-if="role === roleCeo || roleHR"
-           @click="emitChosenView($event)">HR</a>
-        <a type="button" @click="emitChosenView($event)">EMPLOYEE</a>
     </div>
 </template>
 
