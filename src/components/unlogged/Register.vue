@@ -21,6 +21,12 @@
                     <small id="note">{{$t('registerForm.emailNote')}}</small>
                 </div>
                 <div class="form-group">
+                    <label for="company">{{$t('registerForm.getHired')}}</label>
+                    <input v-model="hired" class="form-control" id="hired"
+                           v-bind:placeholder="$t('CEO.newEmployee.hiredTemplate')">
+                    <small>{{$t('CEO.newEmployee.hiredNote')}}</small>
+                </div>
+                <div class="form-group">
                     <label for="company">{{$t('registerForm.getCompanyName')}}</label>
                     <input v-model="company" class="form-control" id="company"
                            v-bind:placeholder="$t('registerForm.getCompanyName')">
@@ -50,6 +56,7 @@
                 email: '',
                 company: '',
                 passwd: '',
+                hired: '',
                 errors: [],
                 succes: false
             }
@@ -58,7 +65,7 @@
             sendRegisterForm(e) {
                 this.errors = []
                 this.succes = false;
-                enterpriseService.addEnterpriseWithCEO(this.name, this.email, this.company, this.passwd)
+                enterpriseService.addEnterpriseWithCEO(this.name, this.email, this.company, this.passwd, this.hired)
                     .then(data => {
                         if (data.errors) {
                             this.errors = data.errors

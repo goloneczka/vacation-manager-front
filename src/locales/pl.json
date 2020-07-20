@@ -1,14 +1,14 @@
 {
   "app" : "Manager urlopów",
-  "login" : "logowanie",
   "logOut" : "wyloguj",
   "registration" : "rejestracja",
   "registerForm" : {
     "form" : "Formularz rejestracji",
     "getName" : "Imie i Nazwisko",
     "getEmail" : " Adres mailowy",
-    "emailNote" : "Na twoja skrzynke pocztowa zostanie wyslany link aktywacyjny.",
+    "emailNote" : "Na skrzynke pocztowa zostanie wyslany link aktywacyjny.",
     "getCompanyName" : "Nazwa twojej firmy",
+    "getHired" : "Rozpoczęcie działalności firmy",
     "getPasswd" : "Hasło użytkownika",
     "submit" : "zatwierdź",
     "accepted" : "na twój email przyjdzie wiadomość z linkiem aktywacyjnym"
@@ -25,6 +25,19 @@
     "header" : "potwierdzenie rejestracji",
     "message" : {
       "accept" : "etap rejestracji został pomyślnie zakończony"
+    }
+  },
+  "CEO" : {
+    "addEmployee": "dodaj pracownika",
+    "newEmployee" : {
+      "title" : "Dodaj pracownika",
+      "hired" : "Zatrudniony",
+      "hiredTemplate" : "yyyy-mm-dd",
+      "hiredNote" : "Wpisz w formie yyyy-mm-dd",
+      "occupation" : "Stanowisko",
+      "isHr" : "Pracownik Human Resources",
+      "accepted" : "na email przyjdzie wiadomość z linkiem aktywacyjnym"
+
     }
   }
 }

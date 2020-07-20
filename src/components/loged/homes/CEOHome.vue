@@ -6,7 +6,7 @@
             <CompanySettings v-if="selected.isCompanySettings" />
             <WorkerInfo v-if="selected.isWorkerInfo" />
             <timetableInfo v-if="selected.isTimetableInfo" />
-
+            <EmployeesInfo v-if="selected.isEmployeesInfo" :company-id="worker.enterpriseId" :role="worker.roles[0].name" />
         </div>
     </div>
 </template>
@@ -19,17 +19,19 @@
     import WorkerInfo from "../WorkerInfo";
     import CompanySettings from "../CompanySettings";
     import TimetableInfo from "../TimetableInfo";
+    import EmployeesInfo from "../EmployeesInfo";
 
     export default {
         name: "CEOHome",
-        components: {TimetableInfo, CompanySettings, WorkerInfo, Sidebar, Header},
+        components: {EmployeesInfo, TimetableInfo, CompanySettings, WorkerInfo, Sidebar, Header},
         data() {
             return{
                 worker: {},
                 selected: {
                     isCompanySettings: false,
                     isWorkerInfo: false,
-                    isTimetableInfo: false
+                    isTimetableInfo: false,
+                    isEmployeesInfo: false
                 }
             }
         },
