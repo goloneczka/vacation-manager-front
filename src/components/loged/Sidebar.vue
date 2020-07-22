@@ -4,7 +4,7 @@
         <a type="button" :id="mappedProperties.isTimetableInfo" v-if="role === roleCeo || role === roleHR"
            @click="emitChosenView($event)">HR</a>
         <a type="button" :id="mappedProperties.isEmployeesInfo" v-if="role === roleCeo || role === roleHR"
-           @click="emitChosenView($event)">EMPLOYEES</a>
+           @click="emitChosenView($event)">PRACOWNICY</a>
         <a type="button" :id="mappedProperties.isCompanySettings" v-if="role === roleCeo"
            @click="emitChosenView($event)">ADMIN</a>
     </div>

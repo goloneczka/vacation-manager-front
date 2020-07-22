@@ -37,6 +37,16 @@
       "occupation" : "Stanowisko",
       "isHr" : "Pracownik Human Resources",
       "accepted" : "na email przyjdzie wiadomość z linkiem aktywacyjnym"
+    }
+  },
+  "EMPLOYEE" : {
+    "newLeave" : {
+      "title" : "Dodaj urlop",
+      "start" : "Od dnia",
+      "end" : "Do dnia",
+      "describe" : "Powód",
+      "describeNote" : "Krótka notka z powodem.",
+      "accepted" : "Wniosek zostanie rozpatrzony przez dział HR"
 
     }
   }
