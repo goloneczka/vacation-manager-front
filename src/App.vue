@@ -9,6 +9,7 @@
   import HttpRequest from './core/requests/HttpRequest';
   import EnterpriseService from "./core/service/EnterpriseService";
   import WorkerService from "./core/service/WorkerService";
+  import LeaveService from "./core/service/LeaveService";
 
   const baseUrl = process.env.VUE_APP_BASE_URL
   export const authorizationStorage = new AuthorizationStorage();
@@ -16,6 +17,8 @@
 
   export const enterpriseService = new EnterpriseService(httpRequest);
   export const workerService = new WorkerService(httpRequest);
+  export const leaveService = new LeaveService(httpRequest);
+
 
 
   export default {

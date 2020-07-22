@@ -2,10 +2,11 @@ import Home from "./components/unlogged/Home";
 import Register from "./components/unlogged/Register"
 import Login from "./components/unlogged/Login";
 import ActivateAccount from "./components/unlogged/ActivateAccount";
-import HRHome from "./components/loged/homes/HRHome";
-import CEOHome from "./components/loged/homes/CEOHome";
-import EmployeeHome from "./components/loged/homes/EmployeeHome";
+// import HRHome from "./components/loged/homes/HRHome";
+// import CEOHome from "./components/loged/homes/CEOHome";
+// import EmployeeHome from "./components/loged/homes/EmployeeHome";
 import ActivateAccountEmployee from "./components/unlogged/ActivateAccountEmployee";
+import TemplateHome from "./components/loged/homes/TemplateHome";
 
 export const routesNames = {
     home: '/',
@@ -28,9 +29,9 @@ export const routes = [
     {path: routesNames.newAccountEmployee, component: ActivateAccountEmployee, props: true},
 
 
-    {path: routesNames.loggedEmployee, component: EmployeeHome},
-    {path: routesNames.loggedHR, component: HRHome},
-    {path: routesNames.loggedCEO, component: CEOHome},
+    {path: routesNames.loggedEmployee, component: TemplateHome},
+    {path: routesNames.loggedHR, component: TemplateHome},
+    {path: routesNames.loggedCEO, component: TemplateHome},
 
 
 

@@ -3,8 +3,9 @@
         <Header :text="worker.name" :is-logged="true" :enterprise="worker.enterpriseName" />
         <Sidebar :role="worker.roles[0].name" :toSelect="selected" />
         <div>
+            <WorkerInfo v-if="selected.isWorkerInfo" :company-name="worker.enterpriseName"
+                        :email="worker.email" :role="worker.roles[0].name"/>
             <CompanySettings v-if="selected.isCompanySettings" />
-            <WorkerInfo v-if="selected.isWorkerInfo" />
             <timetableInfo v-if="selected.isTimetableInfo" />
             <EmployeesInfo v-if="selected.isEmployeesInfo" :company-id="worker.enterpriseId" :role="worker.roles[0].name" />
         </div>
@@ -22,14 +23,14 @@
     import EmployeesInfo from "../EmployeesInfo";
 
     export default {
-        name: "CEOHome",
+        name: "TemplateHome",
         components: {EmployeesInfo, TimetableInfo, CompanySettings, WorkerInfo, Sidebar, Header},
         data() {
             return{
                 worker: {},
                 selected: {
                     isCompanySettings: false,
-                    isWorkerInfo: false,
+                    isWorkerInfo: true,
                     isTimetableInfo: false,
                     isEmployeesInfo: false
                 }

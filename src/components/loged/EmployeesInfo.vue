@@ -97,6 +97,8 @@
                 for (const prop in this.newEmployeeForm)
                     this.newEmployeeForm[prop] = '';
                 this.newEmployeeForm.isHR = false;
+                this.errorsForm = [];
+                this.succes = false;
             },
             handleOk(bvModalEvt) {
                 bvModalEvt.preventDefault()

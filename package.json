@@ -21,10 +21,12 @@
     "bootstrap-vue": "^2.15.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "moment": "^2.27.0",
     "vue-flash-message": "^0.7.2",
     "vue-i18n": "^8.18.2",
     "vue-router": "^3.3.4",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vuejs-datepicker": "^1.6.2"
   },
   "eslintConfig": {
     "root": true,
