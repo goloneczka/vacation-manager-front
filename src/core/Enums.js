@@ -9,5 +9,6 @@ export const AUTHORIZATION = 'authorization';
 
 export const LEAVE_STATUS = {
     NEW : "NEW",
-    ACCEPTED : "ACCEPTED"
+    ACCEPTED : "ACCEPTED",
+    REJECTED : "REJECTED"
 }

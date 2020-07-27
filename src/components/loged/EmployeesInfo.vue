@@ -7,16 +7,13 @@
         </ul>
         <div v-if="!isEmployeeDetails && role === roleCeo">
             <button type="button" class="btn btn-outline-success"
-                    v-b-modal.modal-1> {{$t('CEO.addEmployee')}}
+                    v-b-modal.modal-employee> {{$t('CEO.addEmployee')}}
             </button>
-            <b-modal id="modal-1" :title="$t('CEO.newEmployee.title')"
+            <b-modal id="modal-employee" :title="$t('CEO.newEmployee.title')"
                      @hidden="resetModal"
                      @ok="handleOk">
                 <div v-for="(error, index) in errorsForm" v-bind:key="index">
                     <Alert :message="error" :type="'danger'"/>
-                </div>
-                <div v-if="succes">
-                    <Alert :message="$t('CEO.newEmployee.accepted')" :type="'success'"/>
                 </div>
                 <form ref="form" @submit.stop.prevent="handleSubmit">
                     <div class="form-group">
@@ -47,6 +44,9 @@
                     </div>
                 </form>
             </b-modal>
+            <div v-if="succes">
+                <Alert :message="$t('CEO.newEmployee.accepted')" :type="'success'"/>
+            </div>
         </div>
         <div v-if="isEmployeeDetails">
             TODO - informacje o pracowniku ; wykres kolowy ?
@@ -98,7 +98,6 @@
                     this.newEmployeeForm[prop] = '';
                 this.newEmployeeForm.isHR = false;
                 this.errorsForm = [];
-                this.succes = false;
             },
             handleOk(bvModalEvt) {
                 bvModalEvt.preventDefault()
@@ -110,11 +109,12 @@
                 workerService.addEmployee(this.newEmployeeForm, this.companyId).then(data => {
                     if (data.errors)
                         this.errorsForm = data.errors;
-                    else
+                    else {
                         this.succes = true;
-                })
-                this.$nextTick(() => {
-                    this.$bvModal.hide('modal-prevent-closing')
+                        this.$nextTick(() => {
+                            this.$bvModal.hide('modal-employee')
+                        })
+                    }
                 })
             }
         }

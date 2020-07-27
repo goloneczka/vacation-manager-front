@@ -1,18 +1,20 @@
 <template>
     <div class="sidebar">
-        <a type="button" :id="mappedProperties.isWorkerInfo" @click="emitChosenView($event)">Home</a>
+        <a type="button" :id="mappedProperties.isWorkerInfo" @click="emitChosenView($event)">Statystyki</a>
         <a type="button" :id="mappedProperties.isTimetableInfo" v-if="role === roleCeo || role === roleHR"
-           @click="emitChosenView($event)">HR</a>
+           @click="emitChosenView($event)">Oś czasu</a>
+        <a type="button" :id="mappedProperties.isRequiresInfo" v-if="role === roleCeo || role === roleHR"
+           @click="emitChosenView($event)">Zgłoszenia</a>
         <a type="button" :id="mappedProperties.isEmployeesInfo" v-if="role === roleCeo || role === roleHR"
-           @click="emitChosenView($event)">PRACOWNICY</a>
+           @click="emitChosenView($event)">Pracownicy</a>
         <a type="button" :id="mappedProperties.isCompanySettings" v-if="role === roleCeo"
-           @click="emitChosenView($event)">ADMIN</a>
+           @click="emitChosenView($event)">Ustawienia</a>
     </div>
 </template>
 
 <script>
 
-    import {ROLES} from "../../core/Enums";
+    import {ROLES} from "../../../core/Enums";
 
     export default {
         name: "Sidebar",

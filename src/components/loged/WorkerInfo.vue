@@ -20,17 +20,16 @@
                 <div v-for="(error, index) in errorsForm" v-bind:key="index">
                     <Alert :message="error" :type="'danger'"/>
                 </div>
-                <div v-if="succes">
-                    <Alert :message="$t('EMPLOYEE.newLeave.accepted')" :type="'success'"/>
-                </div>
                 <form ref="form" @submit.stop.prevent="handleSubmit">
                     <div class="form-group">
-                        <label >{{$t('EMPLOYEE.newLeave.start')}}</label>
-                        <Calendar @calendarVal="getCalendarValStart" :end-date="newLeaveForm.endDate"/>
+                        <label>{{$t('EMPLOYEE.newLeave.start')}}</label>
+                        <CalendarPicker @calendarVal="getCalendarValStart"
+                                  :past-leaves="leavesDate" :end-date="newLeaveForm.endDate"/>
                     </div>
                     <div class="form-group">
-                        <label >{{$t('EMPLOYEE.newLeave.end')}}</label>
-                        <Calendar @calendarVal="getCalendarValEnd" :start-date="newLeaveForm.startDate"/>
+                        <label>{{$t('EMPLOYEE.newLeave.end')}}</label>
+                        <CalendarPicker @calendarVal="getCalendarValEnd"
+                                  :past-leaves="leavesDate" :start-date="newLeaveForm.startDate"/>
                     </div>
                     <div class="form-group">
                         <label for="describe">{{$t('EMPLOYEE.newLeave.describe')}}</label>
@@ -40,6 +39,9 @@
                     </div>
                 </form>
             </b-modal>
+            <div v-if="succes">
+                <Alert :message="$t('EMPLOYEE.newLeave.accepted')" :type="'success'"/>
+            </div>
         </div>
     </div>
 </template>
@@ -48,10 +50,11 @@
     import {leaveService} from "../../App";
 
     import Alert from "../Alert";
-    import Calendar from "./Calendar";
+    import CalendarPicker from "./CalendarPicker";
+
     export default {
         name: "WorkerInfo",
-        components: {Calendar, Alert},
+        components: {CalendarPicker, Alert},
         props: ["companyName", "email", "role"],
         data() {
             return {
@@ -59,6 +62,7 @@
                 errorsForm: [],
                 succes: false,
                 leaves: [],
+                leavesDate: [],
                 newLeaveForm: {
                     startDate: '',
                     endDate: '',
@@ -68,11 +72,19 @@
         },
         mounted() {
             leaveService.getEmployeeLeaves(this.companyName, this.email).then((data) => {
-                console.log(data)
                 if (data.errors)
                     this.errors = data.errors;
-                else
+                else {
                     this.leaves = data
+                    this.leavesDate = data.map(paidLeave => {
+                        let day = new Date(paidLeave.endDate);
+                        day.setDate(day.getDate() + 1)
+                        return {
+                            from: new Date(paidLeave.startDate),
+                            to: day
+                        }
+                    })
+                }
             })
         },
         methods: {
@@ -80,7 +92,6 @@
                 for (const prop in this.newLeaveForm)
                     this.newLeaveForm[prop] = '';
                 this.errorsForm = [];
-                this.succes = false;
             },
             handleOk(bvModalEvt) {
                 bvModalEvt.preventDefault()
@@ -90,24 +101,31 @@
                 this.errorsForm = [];
                 this.succes = false;
                 leaveService.addPaidLeave(this.newLeaveForm, this.companyName, this.email, this.role).then(data => {
-                    console.log(data)
                     if (data.errors)
                         this.errorsForm = data.errors;
-                    else
+                    else {
                         this.succes = true;
+                        this.leaves.push(data)
+                        this.$nextTick(() => {
+                            this.$bvModal.hide('modal-leave')
+                        })
+                        let day = new Date(data.endDate);
+                        day.setDate(day.getDate() + 1)
+                        this.leavesDate.push({
+                            from: new Date(data.startDate),
+                            to: day
+                        })
+                    }
                 })
-                this.$nextTick(() => {
-                    this.$bvModal.hide('modal-prevent-closing')
-                })
+
             },
-            getCalendarValEnd(val){
+            getCalendarValEnd(val) {
                 this.newLeaveForm.endDate = val
             },
-            getCalendarValStart(val){
+            getCalendarValStart(val) {
                 this.newLeaveForm.startDate = val
             },
-        },
-
+        }
     }
 </script>
 

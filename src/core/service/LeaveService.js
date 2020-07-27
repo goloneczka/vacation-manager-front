@@ -20,5 +20,20 @@ export default class LeaveService {
         return this.httpRequest.post(`leaves/add/${mail}/${company}`, paidLeave);
     }
 
+    getEmployeesLeavesInCompany(companyId){
+        return this.httpRequest.get(`leaves/${companyId}`);
+    }
+
+    getLeaveDetails(id){
+        return this.httpRequest.get(`leaves/HR/${id}`);
+    }
+
+    getHistoryLeavesInCompany(companyId, page) {
+        return this.httpRequest.get(`leaves/past/${companyId}/${page}`);
+    }
+
+    setLeaveStatus(id, status) {
+        return this.httpRequest.put(`leaves/HR/${id}/${status}`);
+    }
 
 }
