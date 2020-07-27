@@ -1,6 +1,7 @@
 {
   "app" : "Manager urlopów",
   "logOut" : "wyloguj",
+  "back" : "powrót",
   "registration" : "rejestracja",
   "registerForm" : {
     "form" : "Formularz rejestracji",
@@ -39,6 +40,16 @@
       "accepted" : "na email przyjdzie wiadomość z linkiem aktywacyjnym"
     }
   },
+  "HR" : {
+    "considerError" : "Wniosek został już rozpatrzony, brak możliwości ponownego rozpatrzenia",
+    "consider" : {
+      "employee" : "Pracownik",
+      "days" : "Dni",
+      "accept" : "zaakceptuj",
+      "decline" : "odrzuć",
+      "accepted" : "Wniosek został rozpatrzony"
+    }
+  },
   "EMPLOYEE" : {
     "newLeave" : {
       "title" : "Dodaj urlop",
@@ -47,7 +58,6 @@
       "describe" : "Powód",
       "describeNote" : "Krótka notka z powodem.",
       "accepted" : "Wniosek zostanie rozpatrzony przez dział HR"
-
     }
   }
 }

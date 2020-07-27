@@ -14,8 +14,8 @@
 
     export default {
         components: {Datepicker},
-        name: "Calendar",
-        props: ["endDate", "startDate"],
+        name: "CalendarPicker",
+        props: ["endDate", "startDate", "pastLeaves"],
         data() {
             return {
                 pl: pl,
@@ -36,11 +36,11 @@
             const now = new Date();
             const start = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
             const end = new Date(now.getFullYear(), now.getMonth() +3, now.getDate() );
-
             this.validateDate = {
                 to:  start,
                 from:  end,
-                days: [6, 0]
+                days: [6, 0],
+                ranges: this.pastLeaves
             }
         },
         methods: {
