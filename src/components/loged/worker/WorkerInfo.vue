@@ -4,16 +4,23 @@
             <H3> WYKRES KOLOWY OR PASEK - Z LICZBA WYKORZYTANYCH DNI URLOPU</H3>
         </div>
         <div>
-            <ul>
-                <li v-for="(item, index) in leaves" v-bind:key="index">
-                    {{item}}
-                </li>
-            </ul>
+            <div class="row">
+                <div class="col-md-8">
+                    <ul>
+                        <li v-for="(item, index) in leaves" v-bind:key="index">
+                            {{item}}
+                        </li>
+                    </ul>
+                    <button type="button" class="btn btn-outline-success"
+                            v-b-modal.modal-leave> {{$t('EMPLOYEE.newLeave.title')}}
+                    </button>
+                </div>
+                <div class="col-md-3 ml-5 grid-box">
+                    <WorkerVars :company-name="companyName" :varId="workerVarId"/>
+                </div>
+            </div>
         </div>
         <div>
-            <button type="button" class="btn btn-outline-success"
-                    v-b-modal.modal-leave> {{$t('EMPLOYEE.newLeave.title')}}
-            </button>
             <b-modal id="modal-leave" :title="$t('EMPLOYEE.newLeave.title')"
                      @hidden="resetModal"
                      @ok="handleOk">
@@ -24,12 +31,12 @@
                     <div class="form-group">
                         <label>{{$t('EMPLOYEE.newLeave.start')}}</label>
                         <CalendarPicker @calendarVal="getCalendarValStart"
-                                  :past-leaves="leavesDate" :end-date="newLeaveForm.endDate"/>
+                                        :past-leaves="leavesDate" :end-date="newLeaveForm.endDate"/>
                     </div>
                     <div class="form-group">
                         <label>{{$t('EMPLOYEE.newLeave.end')}}</label>
                         <CalendarPicker @calendarVal="getCalendarValEnd"
-                                  :past-leaves="leavesDate" :start-date="newLeaveForm.startDate"/>
+                                        :past-leaves="leavesDate" :start-date="newLeaveForm.startDate"/>
                     </div>
                     <div class="form-group">
                         <label for="describe">{{$t('EMPLOYEE.newLeave.describe')}}</label>
@@ -47,15 +54,16 @@
 </template>
 
 <script>
-    import {leaveService} from "../../App";
+    import {leaveService} from "../../../App";
 
-    import Alert from "../Alert";
-    import CalendarPicker from "./CalendarPicker";
+    import Alert from "../../Alert";
+    import CalendarPicker from "../CalendarPicker";
+    import WorkerVars from "./WorkerVars";
 
     export default {
         name: "WorkerInfo",
-        components: {CalendarPicker, Alert},
-        props: ["companyName", "email", "role"],
+        components: {WorkerVars, CalendarPicker, Alert},
+        props: ["companyName", "email", "role", "workerVarId"],
         data() {
             return {
                 errors: [],
@@ -130,5 +138,8 @@
 </script>
 
 <style scoped>
-
+    .grid-box {
+        padding: 2%;
+        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    }
 </style>

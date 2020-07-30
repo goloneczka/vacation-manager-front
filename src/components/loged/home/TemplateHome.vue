@@ -3,13 +3,14 @@
         <Header :text="worker.name" :is-logged="true" :enterprise="worker.enterpriseName" />
         <Sidebar :role="worker.roles[0].name" :toSelect="selected" />
         <div class="align-to-sidebar">
-            <WorkerInfo v-if="selected.isWorkerInfo" :company-name="worker.enterpriseName"
-                        :email="worker.email" :role="worker.roles[0].name"/>
+            <div class="container" >
+                <WorkerInfo v-if="selected.isWorkerInfo" :company-name="worker.enterpriseName"
+                        :email="worker.email" :role="worker.roles[0].name" :worker-var-id="worker.employeeVarsId"/>
             <timetableInfo v-if="selected.isTimetableInfo" />
             <RequiresInfo v-if="selected.isRequiresInfo" :company-id="worker.enterpriseId" />
             <EmployeesInfo v-if="selected.isEmployeesInfo" :company-id="worker.enterpriseId" :role="worker.roles[0].name" />
             <CompanySettings v-if="selected.isCompanySettings" />
-
+            </div>
         </div>
     </div>
 </template>
@@ -19,10 +20,10 @@
     import {ROLES} from "../../../core/Enums";
     import Header from "../../Header";
     import Sidebar from "./Sidebar";
-    import WorkerInfo from "../WorkerInfo";
+    import WorkerInfo from "../worker/WorkerInfo";
     import CompanySettings from "../CompanySettings";
     import TimetableInfo from "../TimetableInfo";
-    import EmployeesInfo from "../EmployeesInfo";
+    import EmployeesInfo from "../employees/EmployeesInfo";
     import RequiresInfo from "../require/RequiresInfo";
 
     export default {

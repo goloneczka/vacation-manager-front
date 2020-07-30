@@ -1,14 +1,42 @@
 <template>
     <div>
-        <ul>
-            <li v-for="(item, index) in employees" v-bind:key="index">
-                {{item}}
-            </li>
-        </ul>
-        <div v-if="!isEmployeeDetails && role === roleCeo">
-            <button type="button" class="btn btn-outline-success"
-                    v-b-modal.modal-employee> {{$t('CEO.addEmployee')}}
-            </button>
+        <div>
+            <div>
+                <H3> WYKRES KOLOWY OR PASEK - Z LICZBA WYKORZYTANYCH DNI URLOPU</H3>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <table class="table table-hover table-sm">
+                        <thead>
+                        <tr>
+                            <th scope="col">Email</th>
+                            <th scope="col">Imie i nazwsko</th>
+                            <th scope="col">Zawód</th>
+                            <th scope="col">Zatrudniony</th>
+                            <th scope="col">Edytuj</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(item, index) in employees" v-bind:key="index"
+                            @mouseover="updateVars(item)" >
+                            <td>{{item.email}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.occupation}}</td>
+                            <td>{{item.hired}}</td>
+                            <td> NAWIGATE</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div v-if=" role === roleCeo">
+                        <button type="button" class="btn btn-outline-success"
+                                v-b-modal.modal-employee> {{$t('CEO.addEmployee')}}
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-3 ml-5 grid-box" v-if="selected.employeeVarsId !== ''">
+                    <EmployeeVars :varId="selected.employeeVarsId" :employee-name="selected.name"/>
+                </div>
+            </div>
             <b-modal id="modal-employee" :title="$t('CEO.newEmployee.title')"
                      @hidden="resetModal"
                      @ok="handleOk">
@@ -48,20 +76,20 @@
                 <Alert :message="$t('CEO.newEmployee.accepted')" :type="'success'"/>
             </div>
         </div>
-        <div v-if="isEmployeeDetails">
-            TODO - informacje o pracowniku ; wykres kolowy ?
-        </div>
+
     </div>
+
 </template>
 
 <script>
-    import {workerService} from "../../App";
-    import {ROLES} from "../../core/Enums";
-    import Alert from "../Alert";
+    import {workerService} from "../../../App";
+    import {ROLES} from "../../../core/Enums";
+    import Alert from "../../Alert";
+    import EmployeeVars from "./EmployeeVars";
 
     export default {
         name: "EmployeesInfo",
-        components: {Alert},
+        components: {EmployeeVars, Alert},
         props: ["companyId", "role"],
         data() {
             return {
@@ -69,14 +97,18 @@
                 errorsForm: [],
                 succes: false,
                 employees: [],
-                isEmployeeDetails: false,
                 newEmployeeForm: {
                     name: '',
                     email: '',
                     hired: '',
                     occupation: '',
                     isHR: false
-                }
+                },
+                selected: {
+                    name: '',
+                    employeeVarsId: ''
+                },
+                tmpSelect: {}
             }
         },
         computed: {
@@ -88,8 +120,11 @@
             workerService.getEmployeesInCompany(this.companyId).then((data) => {
                 if (data.errors)
                     this.errors = data.errors;
-                else
-                    this.employees = data.map(employee => employee.name)
+                else {
+                    this.employees = data
+                    this.selected.name = this.employees[0].name;
+                    this.selected.employeeVarsId = this.employees[0].employeeVarsId;
+                }
             })
         },
         methods: {
@@ -116,11 +151,21 @@
                         })
                     }
                 })
-            }
+            },
+            updateVars(item) {
+                this.tmpSelect = item;
+                setTimeout(() => {
+                    if (this.tmpSelect === item)
+                        this.selected = item
+                },1000)
+            },
         }
     }
 </script>
 
 <style scoped>
-
+    .grid-box {
+        padding: 2%;
+        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    }
 </style>
