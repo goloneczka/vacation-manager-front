@@ -23,6 +23,9 @@ export default class WorkerService {
         return this.httpRequest.put(`workers/confirm/${mail}/${enterpriseId}`)
     }
 
+    getWorkerDetails(workerVarsId){
+        return this.httpRequest.get(`workers/employee/${workerVarsId}`)
+    }
 
 
 }

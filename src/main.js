@@ -8,12 +8,14 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {routes} from './routes'
 import {authorizationStorage} from "./App";
 import {AUTHORIZATION, ROLES} from "./core/Enums";
+import VueApexCharts from "vue-apexcharts";
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
-
+Vue.use(VueApexCharts);
+Vue.component("apexchart", VueApexCharts);
 
 let router = new VueRouter({routes: routes});
 

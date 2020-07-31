@@ -25,4 +25,8 @@ export default class EnterpriseService {
         return this.httpRequest.get(`enterprises/enterprise/${enterpriseId}`)
     }
 
+    getCompanyByName(enterpriseName){
+        return this.httpRequest.get(`enterprises/${enterpriseName}`)
+    }
+
 }
