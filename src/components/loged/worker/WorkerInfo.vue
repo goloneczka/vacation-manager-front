@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div>
-            <H3> WYKRES KOLOWY OR PASEK - Z LICZBA WYKORZYTANYCH DNI URLOPU</H3>
+        <div v-if="leaves.length">
+            <CustomApexBarChartWorker :data="leaves" :name="email" />
         </div>
         <div>
             <div class="row">
@@ -59,10 +59,11 @@
     import Alert from "../../Alert";
     import CalendarPicker from "../CalendarPicker";
     import WorkerVars from "./WorkerVars";
+    import CustomApexBarChartWorker from "./CustomApexBarChartWorker";
 
     export default {
         name: "WorkerInfo",
-        components: {WorkerVars, CalendarPicker, Alert},
+        components: {CustomApexBarChartWorker, WorkerVars, CalendarPicker, Alert},
         props: ["companyName", "email", "role", "workerVarId"],
         data() {
             return {

@@ -1,8 +1,8 @@
 <template>
     <div>
         <div>
-            <div>
-                <H3> WYKRES KOLOWY OR PASEK - Z LICZBA WYKORZYTANYCH DNI URLOPU</H3>
+            <div v-if="selected.email !== ''">
+                <CustomApexBarChart :company-name="companyName" :email="selected.email" :employee-name="selected.name"/>
             </div>
             <div class="row">
                 <div class="col-md-8">
@@ -86,11 +86,12 @@
     import {ROLES} from "../../../core/Enums";
     import Alert from "../../Alert";
     import EmployeeVars from "./EmployeeVars";
+    import CustomApexBarChart from "./CustomApexBarChart";
 
     export default {
         name: "EmployeesInfo",
-        components: {EmployeeVars, Alert},
-        props: ["companyId", "role"],
+        components: {CustomApexBarChart, EmployeeVars, Alert},
+        props: ["companyId", "companyName", "role"],
         data() {
             return {
                 errors: [],
@@ -105,6 +106,7 @@
                     isHR: false
                 },
                 selected: {
+                    email: '',
                     name: '',
                     employeeVarsId: ''
                 },
@@ -124,6 +126,8 @@
                     this.employees = data
                     this.selected.name = this.employees[0].name;
                     this.selected.employeeVarsId = this.employees[0].employeeVarsId;
+                    this.selected.email = this.employees[0].email;
+
                 }
             })
         },
