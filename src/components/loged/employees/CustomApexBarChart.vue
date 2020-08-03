@@ -52,7 +52,7 @@
                     if (data.errors)
                         this.errors = data.errors;
                     else {
-                        this.name = []
+                        this.series = []
                         this.series.push({
                             name: 'Zaakceptowane',
                             data: [data.filter(acc => acc.status === LEAVE_STATUS.ACCEPTED)

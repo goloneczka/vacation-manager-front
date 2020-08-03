@@ -5,6 +5,7 @@ import ActivateAccount from "./components/unlogged/ActivateAccount";
 import ActivateAccountEmployee from "./components/unlogged/ActivateAccountEmployee";
 import TemplateHome from "./components/loged/home/TemplateHome";
 import ConsiderRequire from "./components/loged/require/ConsiderRequire";
+import EmployeeSettings from "./components/loged/employees/EmployeeSettings";
 
 export const routesNames = {
     home: '/',
@@ -16,7 +17,9 @@ export const routesNames = {
     loggedEmployee: '/employee/home',
     loggedHR: '/HR/home',
     loggedCEO: '/CEO/home',
-    require: '/HR/require/:enterpriseId/:id', requireName: 'requireLeave'
+    require: '/HR/require/:enterpriseId/:id', requireName: 'requireLeave',
+    employeeSett: '/HR/empSettings/:enterpriseId/:email', employeeSettName: 'employeeSett'
+
 
 };
 
@@ -32,6 +35,8 @@ export const routes = [
     {path: routesNames.loggedHR, component: TemplateHome},
     {path: routesNames.loggedCEO, component: TemplateHome},
     {path: routesNames.require, component: ConsiderRequire, props: true, name: routesNames.requireName},
+    {path: routesNames.employeeSett, component: EmployeeSettings, props: true, name: routesNames.employeeSettName},
+
 
 
 

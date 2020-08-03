@@ -6,7 +6,7 @@
             </div>
             <div class="row">
                 <div class="col-md-8">
-                    <table class="table table-hover table-sm">
+                    <table class="table table-hover table-sm ">
                         <thead>
                         <tr>
                             <th scope="col">Email</th>
@@ -23,7 +23,10 @@
                             <td>{{item.name}}</td>
                             <td>{{item.occupation}}</td>
                             <td>{{item.hired}}</td>
-                            <td> NAWIGATE</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-dark btn-sm"
+                                @click="navigate(item)">Val</button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -31,10 +34,13 @@
                         <button type="button" class="btn btn-outline-success"
                                 v-b-modal.modal-employee> {{$t('CEO.addEmployee')}}
                         </button>
+                        <div v-if="succes">
+                            <Alert :message="$t('CEO.newEmployee.accepted')" :type="'success'"/>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3 ml-5 grid-box" v-if="selected.employeeVarsId !== ''">
-                    <EmployeeVars :varId="selected.employeeVarsId" :employee-name="selected.name"/>
+                    <EmployeeVars :varId="selected.employeeVarsId" :employee-name="selected.name" :is-edit="false"/>
                 </div>
             </div>
             <b-modal id="modal-employee" :title="$t('CEO.newEmployee.title')"
@@ -72,9 +78,6 @@
                     </div>
                 </form>
             </b-modal>
-            <div v-if="succes">
-                <Alert :message="$t('CEO.newEmployee.accepted')" :type="'success'"/>
-            </div>
         </div>
 
     </div>
@@ -87,6 +90,7 @@
     import Alert from "../../Alert";
     import EmployeeVars from "./EmployeeVars";
     import CustomApexBarChart from "./CustomApexBarChart";
+    import {routesNames} from "../../../routes";
 
     export default {
         name: "EmployeesInfo",
@@ -163,6 +167,9 @@
                         this.selected = item
                 },1000)
             },
+            navigate(item){
+                this.$router.push({name: routesNames.employeeSettName, params: { enterpriseId: this.companyId, email: item.email}});
+            }
         }
     }
 </script>

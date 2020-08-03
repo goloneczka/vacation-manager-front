@@ -48,6 +48,9 @@
       "accept" : "zaakceptuj",
       "decline" : "odrzuć",
       "accepted" : "Wniosek został rozpatrzony"
+    },
+    "edit" : {
+      "accept" : "potwierdź zmiany"
     }
   },
   "EMPLOYEE" : {

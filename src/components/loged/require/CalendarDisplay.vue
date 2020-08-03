@@ -27,7 +27,7 @@
             },
             end: function(n) {
                 const time = new Date(n)
-                this.valDate.to = new Date(time.getFullYear(), time.getMonth(), time.getDate());
+                this.valDate.to = new Date(time.getFullYear(), time.getMonth(), time.getDate() + 1);
             }
         },
         mounted(){
