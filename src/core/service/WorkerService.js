@@ -8,6 +8,11 @@ export default class WorkerService {
         return this.httpRequest.get(`workers/${mail}/${enterprise}`);
     }
 
+    setWorker(mail, enterprise, data){
+        return this.httpRequest.put(`workers/${mail}/${enterprise}`, data);
+    }
+
+
     getEmployeesInCompany(companyId){
         return this.httpRequest.get(`workers/HR/${companyId}`)
     }
@@ -25,6 +30,10 @@ export default class WorkerService {
 
     getWorkerDetails(workerVarsId){
         return this.httpRequest.get(`workers/employee/${workerVarsId}`)
+    }
+
+    setWorkerDetails(workerVarsId, data){
+        return this.httpRequest.put(`workers/employee/${workerVarsId}`, data);
     }
 
 

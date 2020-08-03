@@ -1,28 +1,44 @@
 <template>
     <div>
-        <div class="form-group row" >
+        <div class="form-group row">
             <label> Pracownik </label>
             <input v-model="employeeName" :disabled="true" type="text"
                    class="form-control"/>
         </div>
         <div class="form-group row">
             <label> Staż pracy </label>
-            <div class="input-group mb-2 mr-sm-2">
-                <input v-model="vars.seniority" :disabled="true" type="text"
-                       class="form-control"/>
-                <div class="input-group-prepend">
-                    <div class="input-group-text ml-2">Lat</div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group mb-2 mr-sm-2">
+                        <input v-model="vars.seniority" :disabled="!isEdit" type="text"
+                               class="form-control"/>
+                        <div class="input-group-prepend">
+                            <div class="input-group-text ml-2">Lat</div>
+                        </div>
+                    </div>
                 </div>
+                <div class="col-md-4 pl-5" v-if="isEdit">
+                    <div class="input-group mb-2 mr-sm-2">
+                        <input v-model="seniorityDays" :disabled="true" type="text"
+                               class="form-control"/>
+                        <div class="input-group-prepend">
+                            <div class="input-group-text ml-2">Dni</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="!isEdit">
+                <small>10 letni staż oznacza dodatkowe 6 dni</small>
             </div>
         </div>
         <div class="form-group row">
             <label> Dodatkowo przyznane dni </label>
-            <input v-model="vars.extraDays" :disabled="true" type="text"
+            <input v-model="vars.extraDays" :disabled="!isEdit" type="text"
                    class="form-control"/>
         </div>
         <div class="form-group row">
             <label> Dodatkowo przyznane dni na ten rok</label>
-            <input v-model="vars.annualExtraDays" :disabled="true" type="text"
+            <input v-model="vars.annualExtraDays" :disabled="!isEdit" type="text"
                    class="form-control"/>
         </div>
     </div>
@@ -33,7 +49,7 @@
 
     export default {
         name: "EmployeeVars",
-        props: ["varId", "employeeName"],
+        props: ["varId", "employeeName", "isEdit"],
         data() {
             return {
                 vars: {
@@ -41,15 +57,32 @@
                     extraDays: '',
                     seniority: ''
                 },
+                isStateChanged: false,
+                seniorityDays: '',
             }
         },
         watch: {
             varId: function (n) {
                 this.getDeatails(n)
+            },
+            vars: {
+                deep: true,
+                handler(n, o) {
+                    if (o.annualExtraDays !== '') {
+                        this.isStateChanged = true;
+                    }
+                }
             }
         },
         mounted() {
             this.getDeatails(this.varId)
+
+            this.$parent.$on('getVars', () => {
+                if (!this.isStateChanged)
+                    this.$root.$emit("setVars", null);
+                else
+                    this.$root.$emit("setVars", this.vars);
+            });
 
         },
         methods: {
@@ -59,7 +92,7 @@
                         this.errors = data.errors;
                     else {
                         this.vars = data
-                        this.vars.extraDays += this.vars.seniority >= 10 ? 6 : 0
+                        this.seniorityDays += this.vars.seniority >= 10 ? 6 : 0
                     }
                 })
             }
