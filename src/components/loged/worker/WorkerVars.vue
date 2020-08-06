@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <small>10 letni staż oznacza dodatkowe 6 dni</small>
+            <small>{{$t('HR.freeWithSeniority')}}</small>
         </div>
         <div class="form-group row">
             <label> Dodatkowo przyznane dni </label>

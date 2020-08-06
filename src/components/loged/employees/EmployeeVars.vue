@@ -28,12 +28,12 @@
                 </div>
             </div>
             <div v-if="!isEdit">
-                <small>10 letni staż oznacza dodatkowe 6 dni</small>
+                <small>{{$t('HR.freeWithSeniority')}}</small>
             </div>
         </div>
         <div class="form-group row">
             <label> Dodatkowo przyznane dni </label>
-            <input v-model="vars.extraDays" :disabled="!isEdit" type="text"
+            <input v-model="freeWithSeniority" :disabled="!isEdit" type="text"
                    class="form-control"/>
         </div>
         <div class="form-group row">
@@ -53,12 +53,12 @@
         data() {
             return {
                 vars: {
-                    annualExtraDays: '',
-                    extraDays: '',
-                    seniority: ''
+                    annualExtraDays: 0,
+                    extraDays: 0,
+                    seniority: 0
                 },
                 isStateChanged: false,
-                seniorityDays: '',
+                seniorityDays: 0,
             }
         },
         watch: {
@@ -79,11 +79,19 @@
 
             this.$parent.$on('getVars', () => {
                 if (!this.isStateChanged)
-                    this.$root.$emit("setVars", null);
+                    this.$root.$emit("setVars", false);
                 else
                     this.$root.$emit("setVars", this.vars);
             });
 
+        },
+        computed: {
+            freeWithSeniority(){
+                if(!this.isEdit)
+                  return this.seniorityDays + this.vars.extraDays;
+                else
+                    return  this.vars.extraDays;
+            }
         },
         methods: {
             getDeatails(val) {

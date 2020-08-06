@@ -3,7 +3,7 @@
         <Header :text="HR.name" :is-logged="true" :enterprise="HR.enterpriseName" :is-back-require="true"/>
         <div class="container">
             <div v-for="(error, index) in errors" v-bind:key="index">
-                <Alert :message="error" :type="'danger'"/>
+                <AlertTemplate :message="error" :type="'danger'"/>
             </div>
             <div class="row">
                 <div class="col-md-6 grid-box">
@@ -53,14 +53,15 @@
 
 <script>
     import {authorizationStorage, workerService} from "../../../App";
-    import Alert from "../../Alert";
+    import AlertTemplate from "../../AlertTemplate";
     import {ROLES} from "../../../core/Enums";
     import Header from "../../Header";
     import EmployeeVars from "./EmployeeVars";
+    import {state} from "../../../core/AlertMessage"
 
     export default {
         name: "EmployeeSettings",
-        components: {EmployeeVars, Header, Alert},
+        components: {EmployeeVars, Header, AlertTemplate},
         props: ["email", "enterpriseId"],
         data() {
             return {
@@ -104,28 +105,36 @@
             })
 
             this.$root.$on("setVars", (data) => {
-                if (data != null)
-                    workerService.setWorkerDetails(this.employee.employeeVarsId, data).then(data => {
-                        console.log(data)
-                        if (data.errors)
-                            this.errors = data.errors;
-                        else {
-                            this.succes = true;
-                        }
-                    })
-                if (this.isStateChanged)
-                    workerService.setWorker(this.email, this.HR.enterpriseName, this.employee ).then(data => {
-                        if (data.errors)
-                            this.errors = data.errors;
-                        else {
-                            this.succes = true;
-                        }
-                    })
+                const that = this;
+                const p1 = new Promise((resolve) => {
+                    this.resolvePromise(() => workerService.setWorkerDetails(that.employee.employeeVarsId, data),
+                        data, resolve)
+                })
+                const p2 = new Promise((resolve) => {
+                    this.resolvePromise(() => workerService.setWorker(that.email, that.HR.enterpriseName, that.employee),
+                        that.isStateChanged, resolve)
+                })
+                Promise.all([p1, p2]).then(() => {
+                    state.prepareMessageToAlert = "Dane pracownika zostały zaktualizowane"
+                    this.$router.go(-1);
+                })
             })
         },
         methods: {
             handleSubmit() {
                 this.$emit('getVars');
+            },
+            resolvePromise(fun, is, resolve) {
+                if (is)
+                    fun().then(data => {
+                        if (data.errors)
+                            this.errors = data.errors;
+                        else {
+                            resolve()
+                        }
+                    })
+                else
+                    resolve()
             }
         }
     }

@@ -2,7 +2,7 @@
     <div>
         <Header :text="$t('login.header')"/>
         <div v-if="error.length">
-            <Alert :message="error" :type="'danger'"/>
+            <AlertTemplate :message="error" :type="'danger'"/>
         </div>
         <div class="container login-container">
             <div class="row">
@@ -36,13 +36,13 @@
 
     import {workerService, authorizationStorage, enterpriseService} from '../../App'
     import Header from "../Header";
-    import Alert from "../Alert";
+    import AlertTemplate from "../AlertTemplate";
     import {routesNames} from "../../routes";
     import {ROLES} from "../../core/Enums";
 
     export default {
         name: 'login',
-        components: {Alert, Header},
+        components: {AlertTemplate, Header},
         data() {
             return {
                 enterprise: '',

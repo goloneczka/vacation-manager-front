@@ -34,9 +34,6 @@
                         <button type="button" class="btn btn-outline-success"
                                 v-b-modal.modal-employee> {{$t('CEO.addEmployee')}}
                         </button>
-                        <div v-if="succes">
-                            <Alert :message="$t('CEO.newEmployee.accepted')" :type="'success'"/>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-3 ml-5 grid-box" v-if="selected.employeeVarsId !== ''">
@@ -47,7 +44,7 @@
                      @hidden="resetModal"
                      @ok="handleOk">
                 <div v-for="(error, index) in errorsForm" v-bind:key="index">
-                    <Alert :message="error" :type="'danger'"/>
+                    <AlertTemplate :message="error" :type="'danger'"/>
                 </div>
                 <form ref="form" @submit.stop.prevent="handleSubmit">
                     <div class="form-group">
@@ -87,20 +84,20 @@
 <script>
     import {workerService} from "../../../App";
     import {ROLES} from "../../../core/Enums";
-    import Alert from "../../Alert";
+    import AlertTemplate from "../../AlertTemplate";
     import EmployeeVars from "./EmployeeVars";
     import CustomApexBarChart from "./CustomApexBarChart";
     import {routesNames} from "../../../routes";
+    import {state} from "../../../core/AlertMessage";
 
     export default {
         name: "EmployeesInfo",
-        components: {CustomApexBarChart, EmployeeVars, Alert},
+        components: {CustomApexBarChart, EmployeeVars, AlertTemplate},
         props: ["companyId", "companyName", "role"],
         data() {
             return {
                 errors: [],
                 errorsForm: [],
-                succes: false,
                 employees: [],
                 newEmployeeForm: {
                     name: '',
@@ -148,13 +145,12 @@
             },
             handleSubmit() {
                 this.errorsForm = [];
-                this.succes = false;
                 workerService.addEmployee(this.newEmployeeForm, this.companyId).then(data => {
                     if (data.errors)
                         this.errorsForm = data.errors;
                     else {
-                        this.succes = true;
                         this.$nextTick(() => {
+                            state.prepareMessageToAlert = this.$t('CEO.newEmployee.accepted')
                             this.$bvModal.hide('modal-employee')
                         })
                     }

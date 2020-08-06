@@ -1,16 +1,17 @@
 <template>
     <div>
-        <Header :text="worker.name" :is-logged="true" :enterprise="worker.enterpriseName" />
-        <Sidebar :role="worker.roles[0].name" :toSelect="selected" />
+        <Header :text="worker.name" :is-logged="true" :enterprise="worker.enterpriseName"/>
+        <Sidebar :role="worker.roles[0].name" :toSelect="selected"/>
         <div class="align-to-sidebar">
-            <div class="container" >
+            <div class="container">
+                <LoggedAlert />
                 <WorkerInfo v-if="selected.isWorkerInfo" :company-name="worker.enterpriseName"
-                        :email="worker.email" :role="worker.roles[0].name" :worker-var-id="worker.employeeVarsId"/>
-            <timetableInfo v-if="selected.isTimetableInfo" />
-            <RequiresInfo v-if="selected.isRequiresInfo" :company-id="worker.enterpriseId" />
-            <EmployeesInfo v-if="selected.isEmployeesInfo" :company-id="worker.enterpriseId"
-                           :company-name="worker.enterpriseName" :role="worker.roles[0].name" />
-            <CompanySettings v-if="selected.isCompanySettings" />
+                            :email="worker.email" :role="worker.roles[0].name" :worker-var-id="worker.employeeVarsId"/>
+                <timetableInfo v-if="selected.isTimetableInfo"/>
+                <RequiresInfo v-if="selected.isRequiresInfo" :company-id="worker.enterpriseId"/>
+                <EmployeesInfo v-if="selected.isEmployeesInfo" :company-id="worker.enterpriseId"
+                               :company-name="worker.enterpriseName" :role="worker.roles[0].name"/>
+                <CompanySettings v-if="selected.isCompanySettings"/>
             </div>
         </div>
     </div>
@@ -26,20 +27,24 @@
     import TimetableInfo from "../TimetableInfo";
     import EmployeesInfo from "../employees/EmployeesInfo";
     import RequiresInfo from "../require/RequiresInfo";
+    import LoggedAlert from "./LoggedAlert";
+
 
     export default {
         name: "TemplateHome",
-        components: {RequiresInfo, EmployeesInfo, TimetableInfo, CompanySettings, WorkerInfo, Sidebar, Header},
+        components: {
+            LoggedAlert,
+            RequiresInfo, EmployeesInfo, TimetableInfo, CompanySettings, WorkerInfo, Sidebar, Header},
         data() {
-            return{
+            return {
                 worker: {},
                 selected: {
                     isCompanySettings: false,
                     isWorkerInfo: true,
                     isTimetableInfo: false,
                     isEmployeesInfo: false,
-                    isRequiresInfo : false
-                }
+                    isRequiresInfo: false
+                },
             }
         },
         created() {
@@ -47,17 +52,16 @@
         },
         mounted() {
             this.$root.$on("renderView", (selectedView) => {
-            for (let prop in this.selected)
-                this.selected[prop] = false;
-            this.selected[selectedView] = true;
+                for (let prop in this.selected)
+                    this.selected[prop] = false;
+                this.selected[selectedView] = true;
             });
-
-        }
+        },
     }
 </script>
 
 <style scoped>
-        .align-to-sidebar{
-            margin-left: 200px;
-        }
+    .align-to-sidebar {
+        margin-left: 200px;
+    }
 </style>

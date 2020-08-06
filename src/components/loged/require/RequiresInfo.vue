@@ -2,15 +2,21 @@
     <div>
         <div>
             <H3> Aktywne zgłoszenia </H3>
-                <div v-for="(item, index) in ActiveLeaves" v-bind:key="index" v-on:click="selectedLeave(item)">
-                    <Require :thin-worker-require="item"/>
-                </div>
+            <ul v-for="(item, index) in ActiveLeaves" v-bind:key="index"
+                class="list-group" v-on:click="selectedLeave(item)">
+                <li class="list-group-item list-group-item-success list-group-item-action">
+                    {{ item }}
+                </li>
+            </ul>
         </div>
         <div>
             <H3> Rozsztrzygniete zgłoszenia </H3>
-            <ul>
-                <li v-for="(item, index) in HistoryLeaves" v-bind:key="index">
-                    {{item}}
+            <ul v-for="(item, index) in HistoryLeaves" v-bind:key="index" class="list-group">
+                <li class="list-group-item list-group-item-primary"
+                    v-if="item.status === statusAcc"> {{item}}
+                </li>
+                <li class="list-group-item list-group-item-warning "
+                    v-if="item.status === statusRej"> {{item}}
                 </li>
             </ul>
         </div>
@@ -19,17 +25,27 @@
 
 <script>
     import {leaveService} from "../../../App";
-    import Require from "./Require";
     import {routesNames} from "../../../routes";
+    import {LEAVE_STATUS} from "../../../core/Enums";
 
     export default {
         name: "RequiresInfo",
-        components: {Require},
         props: ["companyId"],
         data() {
             return {
                 ActiveLeaves: [],
                 HistoryLeaves: []
+            }
+        },
+        computed: {
+            statusAcc: () => {
+                return LEAVE_STATUS.ACCEPTED
+            },
+            statusNew: () => {
+                return LEAVE_STATUS.NEW
+            },
+            statusRej: () => {
+                return LEAVE_STATUS.REJECTED
             }
         },
         mounted() {
@@ -47,8 +63,11 @@
             })
         },
         methods: {
-            selectedLeave(leave){
-                this.$router.push({name: routesNames.requireName, params: { enterpriseId: this.companyId, id: leave.id}});
+            selectedLeave(leave) {
+                this.$router.push({
+                    name: routesNames.requireName,
+                    params: {enterpriseId: this.companyId, id: leave.id}
+                });
             }
         }
     }
