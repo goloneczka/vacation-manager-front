@@ -51,7 +51,8 @@
     },
     "edit" : {
       "accept" : "potwierdź zmiany"
-    }
+    },
+    "freeWithSeniority" : "10 letni staż oznacza dodatkowe 6 dni"
   },
   "EMPLOYEE" : {
     "newLeave" : {

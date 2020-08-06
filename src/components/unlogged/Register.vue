@@ -3,37 +3,37 @@
         <Header :text="$t('registerForm.form')"/>
         <div class="pr-5 pl-5 text-left">
             <div v-for="(error, index) in errors" v-bind:key="index">
-                <Alert :message="error" :type="'danger'"/>
+                <AlertTemplate :message="error" :type="'danger'"/>
             </div>
             <div v-if="succes">
-                <Alert :message="$t('registerForm.accepted')" :type="'success'"/>
+                <AlertTemplate :message="$t('registerForm.accepted')" :type="'success'"/>
             </div>
             <form @submit="sendRegisterForm" method="post">
                 <div class="form-group">
                     <label for="name">{{$t('registerForm.getName')}}</label>
-                    <input v-model="name" class="form-control" id="name"
+                    <input v-model="form.name" class="form-control" id="name"
                            v-bind:placeholder="$t('registerForm.getName')">
                 </div>
                 <div class="form-group">
                     <label for="email">{{$t('registerForm.getEmail')}}</label>
-                    <input v-model="email" class="form-control" id="email"
+                    <input v-model="form.email" class="form-control" id="email"
                            v-bind:placeholder="$t('registerForm.getEmail')">
                     <small id="note">{{$t('registerForm.emailNote')}}</small>
                 </div>
                 <div class="form-group">
                     <label for="company">{{$t('registerForm.getHired')}}</label>
-                    <input v-model="hired" class="form-control" id="hired"
+                    <input v-model="form.hired" class="form-control" id="hired"
                            v-bind:placeholder="$t('CEO.newEmployee.hiredTemplate')">
                     <small>{{$t('CEO.newEmployee.hiredNote')}}</small>
                 </div>
                 <div class="form-group">
                     <label for="company">{{$t('registerForm.getCompanyName')}}</label>
-                    <input v-model="company" class="form-control" id="company"
+                    <input v-model="form.company" class="form-control" id="company"
                            v-bind:placeholder="$t('registerForm.getCompanyName')">
                 </div>
                 <div class="form-group">
                     <label for="passwd">{{$t('registerForm.getPasswd')}}</label>
-                    <input v-model="passwd" type="password" class="form-control" id="passwd"
+                    <input v-model="form.passwd" type="password" class="form-control" id="passwd"
                            v-bind:placeholder="$t('registerForm.getPasswd')">
                 </div>
                 <button type="submit" class="btn btn-primary">{{$t('registerForm.submit')}}</button>
@@ -45,18 +45,20 @@
 <script>
     import Header from "../Header";
     import {enterpriseService} from "../../App";
-    import Alert from "../Alert";
+    import AlertTemplate from "../AlertTemplate";
 
     export default {
         name: "Register",
-        components: {Alert, Header},
+        components: {AlertTemplate, Header},
         data: function () {
             return {
-                name: '',
-                email: '',
-                company: '',
-                passwd: '',
-                hired: '',
+                form: {
+                    name: '',
+                    email: '',
+                    company: '',
+                    passwd: '',
+                    hired: '',
+                },
                 errors: [],
                 succes: false
             }
@@ -65,15 +67,20 @@
             sendRegisterForm(e) {
                 this.errors = []
                 this.succes = false;
-                enterpriseService.addEnterpriseWithCEO(this.name, this.email, this.company, this.passwd, this.hired)
+                enterpriseService.addEnterpriseWithCEO(this.form.name, this.form.email,
+                                    this.form.company, this.form.passwd, this.form.hired)
                     .then(data => {
                         if (data.errors) {
                             this.errors = data.errors
                         } else {
                             this.succes = true
+                            for (let prop in this.form)
+                                this.form[prop] = '';
                         }
                     });
-                e.preventDefault();     // TODO CO TO ROBI ?
+                e.preventDefault();
+
+                // TODO CO TO ROBI ?
             }
         }
     }

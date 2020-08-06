@@ -6,11 +6,14 @@
         <div>
             <div class="row">
                 <div class="col-md-8">
-                    <ul>
-                        <li v-for="(item, index) in leaves" v-bind:key="index">
-                            {{item}}
-                        </li>
-                    </ul>
+                        <ul v-for="(item, index) in leaves" v-bind:key="index" class="list-group">
+                            <li class="list-group-item list-group-item-primary"
+                                v-if="item.status === statusAcc"> {{item}} </li>
+                            <li class="list-group-item list-group-item-success"
+                                v-if="item.status === statusNew"> {{item}} </li>
+                            <li class="list-group-item list-group-item-warning "
+                                v-if="item.status === statusRej"> {{item}} </li>
+                        </ul>
                     <button type="button" class="btn btn-outline-success"
                             v-b-modal.modal-leave> {{$t('EMPLOYEE.newLeave.title')}}
                     </button>
@@ -25,7 +28,7 @@
                      @hidden="resetModal"
                      @ok="handleOk">
                 <div v-for="(error, index) in errorsForm" v-bind:key="index">
-                    <Alert :message="error" :type="'danger'"/>
+                    <AlertTemplate :message="error" :type="'danger'"/>
                 </div>
                 <form ref="form" @submit.stop.prevent="handleSubmit">
                     <div class="form-group">
@@ -46,9 +49,7 @@
                     </div>
                 </form>
             </b-modal>
-            <div v-if="succes">
-                <Alert :message="$t('EMPLOYEE.newLeave.accepted')" :type="'success'"/>
-            </div>
+
         </div>
     </div>
 </template>
@@ -56,20 +57,21 @@
 <script>
     import {leaveService} from "../../../App";
 
-    import Alert from "../../Alert";
-    import CalendarPicker from "../CalendarPicker";
+    import AlertTemplate from "../../AlertTemplate";
+    import CalendarPicker from "./CalendarPicker";
     import WorkerVars from "./WorkerVars";
     import CustomApexBarChartWorker from "./CustomApexBarChartWorker";
+    import {LEAVE_STATUS} from "../../../core/Enums";
+    import {state} from "../../../core/AlertMessage";
 
     export default {
         name: "WorkerInfo",
-        components: {CustomApexBarChartWorker, WorkerVars, CalendarPicker, Alert},
+        components: {CustomApexBarChartWorker, WorkerVars, CalendarPicker, AlertTemplate},
         props: ["companyName", "email", "role", "workerVarId"],
         data() {
             return {
                 errors: [],
                 errorsForm: [],
-                succes: false,
                 leaves: [],
                 leavesDate: [],
                 newLeaveForm: {
@@ -79,13 +81,26 @@
                 }
             }
         },
+        computed: {
+            statusAcc: () => {
+                return LEAVE_STATUS.ACCEPTED
+            },
+            statusNew: () => {
+                return LEAVE_STATUS.NEW
+            },
+            statusRej: () => {
+                return LEAVE_STATUS.REJECTED
+            }
+        },
         mounted() {
             leaveService.getEmployeeLeaves(this.companyName, this.email).then((data) => {
                 if (data.errors)
                     this.errors = data.errors;
                 else {
                     this.leaves = data
-                    this.leavesDate = data.map(paidLeave => {
+                    this.leavesDate = data
+                        .filter(paidLeave => paidLeave.status !== LEAVE_STATUS.REJECTED)
+                        .map(paidLeave => {
                         let day = new Date(paidLeave.endDate);
                         day.setDate(day.getDate() + 1)
                         return {
@@ -108,14 +123,13 @@
             },
             handleSubmit() {
                 this.errorsForm = [];
-                this.succes = false;
                 leaveService.addPaidLeave(this.newLeaveForm, this.companyName, this.email, this.role).then(data => {
                     if (data.errors)
                         this.errorsForm = data.errors;
                     else {
-                        this.succes = true;
                         this.leaves.push(data)
                         this.$nextTick(() => {
+                            state.prepareMessageToAlert = this.$t('EMPLOYEE.newLeave.accepted')
                             this.$bvModal.hide('modal-leave')
                         })
                         let day = new Date(data.endDate);

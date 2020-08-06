@@ -3,10 +3,7 @@
         <Header :text="HR.name" :is-logged="true" :enterprise="HR.enterpriseName" :is-back-require="true"/>
         <div class="container login-container">
             <div v-for="(error, index) in errors" v-bind:key="index">
-                <Alert :message="error" :type="'danger'"/>
-            </div>
-            <div v-if="succes">
-                <Alert :message="$t('HR.consider.accepted')" :type="'success'"/>
+                <AlertTemplate :message="error" :type="'danger'"/>
             </div>
             <div class="row">
                 <div class="col-md-6 login-form-1">
@@ -38,7 +35,6 @@
                             <input v-model="workerRequire.describe" :disabled="true"  type="text"
                                    class="form-control"/>
                         </div>
-
                     </form>
                 </div>
                 <div class="col-md-6">
@@ -49,9 +45,9 @@
                         <h4> Decyzja </h4>
                         <div class="form-group">
                             <input type="submit" class="btn btnSubmit" :value="$t('HR.consider.accept')"
-                                   :disabled="succes || valFailed" :id="statusAccept" @click="handleSubmit($event)"/>
+                                   :disabled="valFailed" :id="statusAccept" @click="handleSubmit($event)"/>
                             <input type="submit" class="btn btnReject" :value="$t('HR.consider.decline')"
-                                   :disabled="succes || valFailed" :id="statusReject" @click="handleSubmit($event)"/>
+                                   :disabled="valFailed" :id="statusReject" @click="handleSubmit($event)"/>
                         </div>
                     </div>
                 </div>
@@ -59,23 +55,22 @@
         </div>
     </div>
 </template>
-
 <script>
     import {authorizationStorage, leaveService} from "../../../App";
     import {LEAVE_STATUS, ROLES} from "../../../core/Enums";
     import Header from "../../Header";
     import CalendarDisplay from "./CalendarDisplay";
-    import Alert from "../../Alert";
+    import AlertTemplate from "../../AlertTemplate";
+    import {state} from "../../../core/AlertMessage";
 
     export default {
         name: "Require",
-        components: {Alert, CalendarDisplay, Header},
+        components: {AlertTemplate, CalendarDisplay, Header},
         props: ["id", "enterpriseId"],
         data() {
             return {
                 HR: {},
                 errors: [],
-                succes: false,
                 valFailed: false,
                 workerRequire: {
                     name: '',
@@ -116,8 +111,10 @@
                 leaveService.setLeaveStatus(this.id, event.currentTarget.id).then((data) => {
                     if (data.errors)
                         this.errors = data.errors;
-                    else
-                        this.succes = true;
+                    else {
+                        state.prepareMessageToAlert = this.$t('HR.consider.accepted')
+                        this.$router.go(-1);
+                    }
                 })
             }
         }

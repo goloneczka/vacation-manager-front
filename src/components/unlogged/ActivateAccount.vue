@@ -1,18 +1,18 @@
 <template>
     <div>
         <Header :text="$t('confirm.header')" class="mb-5"/>
-        <Alert :message="message" :type="type"/>
+        <AlertTemplate :message="message" :type="type"/>
     </div>
 </template>
 
 <script>
     import Header from "../Header";
-    import Alert from "../Alert";
+    import AlertTemplate from "../AlertTemplate";
     import {enterpriseService} from "../../App";
 
     export default {
         name: "ActivateAccount",
-        components: {Alert, Header},
+        components: {AlertTemplate, Header},
         props: ["email", "enterpriseId"],
         data() {
             return {
