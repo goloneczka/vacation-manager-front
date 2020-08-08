@@ -6,11 +6,13 @@
 
 <script>
     import {leaveService} from "../../../App";
-    import {LEAVE_STATUS} from "../../../core/Enums";
+    import {prepareApexSeries} from "../../../core/ApexHelper";
+    import {countFreeDays} from "../../../core/Formatter"
+
 
     export default {
         name: "CustomApexBarChart",
-        props: ["companyName", "email", "employeeName"],
+        props: ["companyName", "email", "employeeName", "vars", "companyLeaves"],
         data() {
             return {
                 series: [],
@@ -28,7 +30,7 @@
                             horizontal: true,
                         },
                     },
-                    legend:{
+                    legend: {
                         position: 'top',
                         offsetX: 40
                     },
@@ -39,35 +41,25 @@
             }
         },
         watch: {
-            email: function (n) {
+            vars: function (n) {
                 this.getDetails(n)
+            },
+            employeeName: function (n) {
+                this.$set(this.chartOptions.xaxis.categories, 0, n);
             }
         },
         mounted() {
-            this.getDetails(this.email);
+            this.getDetails(this.vars);
         },
         methods: {
-            getDetails(n){
-                leaveService.getEmployeeLeaves(this.companyName, n).then((data) => {
+            getDetails(vars) {
+                const amountFreeDays = countFreeDays(this.companyLeaves, vars)
+
+                leaveService.getEmployeeLeaves(this.companyName, this.email).then((data) => {
                     if (data.errors)
                         this.errors = data.errors;
                     else {
-                        this.series = []
-                        this.series.push({
-                            name: 'Zaakceptowane',
-                            data: [data.filter(acc => acc.status === LEAVE_STATUS.ACCEPTED)
-                                .reduce((prev, curr) => { return prev + curr.days} , 0) ]
-                        })
-                        this.series.push({
-                            name: 'Oczekujące',
-                            data: [data.filter(acc => acc.status === LEAVE_STATUS.NEW)
-                                .reduce((prev, curr) => { return prev + curr.days} , 0)]
-                        })
-                        this.series.push({
-                            name: 'Odrzucone',
-                            data: [data.filter(acc => acc.status === LEAVE_STATUS.REJECTED)
-                                .reduce((prev, curr) => { return prev + curr.days} , 0)]
-                        })
+                        this.series = prepareApexSeries(data, amountFreeDays)
                     }
                 })
             }

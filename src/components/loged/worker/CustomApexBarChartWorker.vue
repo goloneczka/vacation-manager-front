@@ -5,11 +5,12 @@
 </template>
 
 <script>
-    import {LEAVE_STATUS} from "../../../core/Enums";
+    import {prepareApexSeries} from "../../../core/ApexHelper";
+    import {countFreeDays} from "../../../core/Formatter";
 
     export default {
         name: "CustomApexBarChartWorker",
-        props: ["data", "name"],
+        props: ["data", "name", "vars", "companyLeaves"],
         data() {
             return {
                 series: [],
@@ -38,21 +39,8 @@
             }
         },
         mounted() {
-            this.series.push({
-                name: 'Zaakceptowane',
-                data: [this.data.filter(acc => acc.status === LEAVE_STATUS.ACCEPTED)
-                    .reduce((prev, curr) => { return prev + curr.days} , 0) ]
-            })
-            this.series.push({
-                name: 'Oczekujące',
-                data: [this.data.filter(acc => acc.status === LEAVE_STATUS.NEW)
-                    .reduce((prev, curr) => { return prev + curr.days} , 0)]
-            })
-            this.series.push({
-                name: 'Odrzucone',
-                data: [this.data.filter(acc => acc.status === LEAVE_STATUS.REJECTED)
-                    .reduce((prev, curr) => { return prev + curr.days} , 0)]
-            })
+            const amountFreeDays = countFreeDays(this.companyLeaves, this.vars);
+            this.series = prepareApexSeries(this.data, amountFreeDays)
         }
     }
 </script>
