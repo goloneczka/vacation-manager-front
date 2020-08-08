@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="form-group row">
-            <label> Dni urlopowe w firmie </label>
-            <input v-model="companyLeaves" :disabled="true" type="text"
+            <label> Pracownik </label>
+            <input v-model="employeeName" :disabled="true" type="text"
                    class="form-control"/>
         </div>
         <div class="form-group row">
@@ -19,6 +19,7 @@
                 </div>
             </div>
             <small>{{$t('HR.freeWithSeniority')}}</small>
+
         </div>
         <div class="form-group row">
             <label> Dodatkowo przyznane dni </label>
@@ -34,10 +35,9 @@
 </template>
 
 <script>
-
     export default {
-        name: "WorkerVars",
-        props: ["vars", "companyLeaves"],
+        name: "EmployeeVarsInfo",
+        props: ["vars", "employeeName", "isEdit"],
 
         computed: {
             freeWithSeniority: {
@@ -45,7 +45,7 @@
                     return this.vars.seniority >= 10 ? this.vars.extraDays + 6 : this.vars.extraDays
                 },
             }
-        }
+        },
 
     }
 </script>

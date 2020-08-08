@@ -9,11 +9,18 @@ export function countWorkDays(startDate, endDays) {
     let counter = 0;
 
     while (date.isSameOrBefore(endDays)) {
-        date = date.add(1, 'days');
-        if (date.isoWeekday() === 6 || date.isoWeekday() === 7) {
-            continue;
+        if (date.isoWeekday() !== 6 && date.isoWeekday() !== 7) {
+            counter++;
         }
-        counter++;
+        date = date.add(1, 'days');
     }
     return counter;
+}
+
+export function countFreeDays(company, vars) {
+    let freeDays = company;
+    for (const prop in vars)
+        freeDays += prop !== 'seniority' ? vars[prop] :
+            vars[prop] >= 10 ?  6 : 0
+    return freeDays;
 }

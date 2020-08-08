@@ -8,12 +8,44 @@
             <div class="row">
                 <div class="col-md-6 grid-box">
                     <h3> Dane pracownika</h3>
-                    <form>
-                        <div v-if="employee.name">
-                            <EmployeeVars :varId="employee.employeeVarsId" :employee-name="employee.name"
-                                          :is-edit="isEditAble"/>
+                    <div class="form-group row">
+                        <label> Pracownik </label>
+                        <input v-model="employee.name" :disabled="true" type="text"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group row">
+                        <label> Staż pracy </label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input v-model="vars.seniority" :disabled="!isEditAble" type="text"
+                                           class="form-control"/>
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text ml-2">Lat</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input v-model="seniorityDays" :disabled="true" type="text"
+                                           class="form-control"/>
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text ml-2">Dni</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="form-group row">
+                        <label> Dodatkowo przyznane dni </label>
+                        <input v-model="vars.extraDays" :disabled="!isEditAble" type="text"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group row">
+                        <label> Dodatkowo przyznane dni na ten rok</label>
+                        <input v-model="vars.annualExtraDays" :disabled="!isEditAble" type="text"
+                               class="form-control"/>
+                    </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="grid-box2">
@@ -56,12 +88,11 @@
     import AlertTemplate from "../../AlertTemplate";
     import {ROLES} from "../../../core/Enums";
     import Header from "../../Header";
-    import EmployeeVars from "./EmployeeVars";
     import {state} from "../../../core/AlertMessage"
 
     export default {
         name: "EmployeeSettings",
-        components: {EmployeeVars, Header, AlertTemplate},
+        components: {Header, AlertTemplate},
         props: ["email", "enterpriseId"],
         data() {
             return {
@@ -74,12 +105,18 @@
                     name: '',
                     email: ''
                 },
+                vars: {
+                    annualExtraDays: 0,
+                    extraDays: 0,
+                    seniority: 0
+                },
+                seniorityDays: 0,
+
                 isEditAble: false,
                 isStateChanged: false,
                 isStateVarChanged: false
             }
         },
-        computed: {},
         created() {
             this.HR = JSON.parse(authorizationStorage.getAuthorization(ROLES.WORKER));
         },
@@ -89,6 +126,14 @@
                 handler(n, o) {
                     if (o.occupation !== '') {
                         this.isStateChanged = true;
+                    }
+                }
+            },
+            vars: {
+                deep: true,
+                handler(n, o) {
+                    if (o.annualExtraDays !== '') {
+                        this.isStateVarChanged = true;
                     }
                 }
             }
@@ -101,14 +146,26 @@
                     this.employee = data
                     if (this.employee.roles[0].name !== ROLES.CEO || this.HR.roles[0].name === ROLES.CEO)
                         this.isEditAble = true
+                    workerService.getWorkerDetails(this.employee.employeeVarsId).then(data => {
+                        if (data.errors)
+                            this.errors = data.errors;
+                        else {
+                            this.vars = data
+                            this.seniorityDays = this.vars.seniority >= 10 ? 6 : 0
+                        }
+                    })
+
                 }
             })
 
-            this.$root.$on("setVars", (data) => {
+
+        },
+        methods: {
+            handleSubmit() {
                 const that = this;
                 const p1 = new Promise((resolve) => {
-                    this.resolvePromise(() => workerService.setWorkerDetails(that.employee.employeeVarsId, data),
-                        data, resolve)
+                    this.resolvePromise(() => workerService.setWorkerDetails(that.employee.employeeVarsId, that.vars),
+                        that.isStateVarChanged, resolve)
                 })
                 const p2 = new Promise((resolve) => {
                     this.resolvePromise(() => workerService.setWorker(that.email, that.HR.enterpriseName, that.employee),
@@ -118,11 +175,7 @@
                     state.prepareMessageToAlert = "Dane pracownika zostały zaktualizowane"
                     this.$router.go(-1);
                 })
-            })
-        },
-        methods: {
-            handleSubmit() {
-                this.$emit('getVars');
+
             },
             resolvePromise(fun, is, resolve) {
                 if (is)
