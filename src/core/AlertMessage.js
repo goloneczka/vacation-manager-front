@@ -1,3 +1,4 @@
-export let state = {
+export let globalStateAlert = {
     prepareMessageToAlert: '',
+    type: ''
 }

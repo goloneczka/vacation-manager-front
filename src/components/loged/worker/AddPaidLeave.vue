@@ -31,7 +31,7 @@
 
 <script>
     import {leaveService} from "../../../App";
-    import {state} from "../../../core/AlertMessage";
+    import {globalStateAlert} from "../../../core/AlertMessage";
     import AlertTemplate from "../../AlertTemplate";
     import CalendarPicker from "./CalendarPicker";
 
@@ -67,11 +67,11 @@
                         this.errorsForm = data.errors;
                     else {
                         this.$nextTick(() => {
-                            state.prepareMessageToAlert = this.$t('EMPLOYEE.newLeave.accepted')
+                            globalStateAlert.prepareMessageToAlert = this.$t('EMPLOYEE.newLeave.accepted');
+                            globalStateAlert.type = "success";
                             this.$bvModal.hide('modal-leave')
                         })
                         this.$root.$emit("setLeaves", data)
-
                     }
                 })
 

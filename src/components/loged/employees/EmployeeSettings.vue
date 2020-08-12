@@ -72,10 +72,8 @@
                         </div>
                     </div>
                     <div class="form-group grid-box3">
-                        <div class="center">
                             <input type="submit" class="btn btnSubmit" :value="$t('HR.edit.accept')"
                                    @click="handleSubmit"/>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -88,7 +86,7 @@
     import AlertTemplate from "../../AlertTemplate";
     import {ROLES} from "../../../core/Enums";
     import Header from "../../Header";
-    import {state} from "../../../core/AlertMessage"
+    import {globalStateAlert} from "../../../core/AlertMessage"
 
     export default {
         name: "EmployeeSettings",
@@ -172,8 +170,10 @@
                         that.isStateChanged, resolve)
                 })
                 Promise.all([p1, p2]).then(() => {
-                    state.prepareMessageToAlert = "Dane pracownika zostały zaktualizowane"
+                    globalStateAlert.prepareMessageToAlert = "Dane pracownika zostały zaktualizowane";
+                    globalStateAlert.type = "success";
                     this.$router.go(-1);
+
                 })
 
             },

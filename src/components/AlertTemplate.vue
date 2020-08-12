@@ -16,7 +16,7 @@
         data() {
             return {
                 dismissTime: 0,
-                countDown: 5
+                countDown: 4
             }
         },
         props: ['message', 'type'],

@@ -36,4 +36,8 @@ export default class LeaveService {
         return this.httpRequest.put(`leaves/HR/${id}/${status}`);
     }
 
+    deleteLeavesInCompany(company){
+        return this.httpRequest.delete(`leaves/CEO/${company}`);
+    }
+
 }

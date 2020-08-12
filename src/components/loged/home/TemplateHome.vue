@@ -11,7 +11,8 @@
                 <RequiresInfo v-if="selected.isRequiresInfo" :company-id="worker.enterpriseId"/>
                 <EmployeesInfo v-if="selected.isEmployeesInfo" :company-id="worker.enterpriseId"
                                :company-name="worker.enterpriseName" :role="worker.roles[0].name"/>
-                <CompanySettings v-if="selected.isCompanySettings"/>
+                <CompanySettings v-if="selected.isCompanySettings"
+                                 :worker="worker.name" :company-name="worker.enterpriseName"/>
             </div>
         </div>
     </div>
@@ -23,7 +24,7 @@
     import Header from "../../Header";
     import Sidebar from "./Sidebar";
     import WorkerInfo from "../worker/WorkerInfo";
-    import CompanySettings from "../CompanySettings";
+    import CompanySettings from "../settings/CompanySettings";
     import TimetableInfo from "../TimetableInfo";
     import EmployeesInfo from "../employees/EmployeesInfo";
     import RequiresInfo from "../require/RequiresInfo";
