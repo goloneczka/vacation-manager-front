@@ -38,7 +38,7 @@
 
 <script>
     import {workerService} from "../../../App";
-    import {state} from "../../../core/AlertMessage";
+    import {globalStateAlert} from "../../../core/AlertMessage";
     import AlertTemplate from "../../AlertTemplate";
 
     export default {
@@ -79,7 +79,8 @@
                         this.errorsForm = data.errors;
                     else {
                         this.$nextTick(() => {
-                            state.prepareMessageToAlert = this.$t('CEO.newEmployee.accepted')
+                            globalStateAlert.prepareMessageToAlert = this.$t("CEO.newEmployee.accepted")
+                            globalStateAlert.type = "success";
                             this.$bvModal.hide('modal-employee')
                         })
                     }

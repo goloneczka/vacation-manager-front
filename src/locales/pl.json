@@ -38,7 +38,8 @@
       "occupation" : "Stanowisko",
       "isHr" : "Pracownik Human Resources",
       "accepted" : "na email przyjdzie wiadomość z linkiem aktywacyjnym"
-    }
+    },
+    "restart" : "Wymuś restart"
   },
   "HR" : {
     "considerError" : "Wniosek został już rozpatrzony, brak możliwości ponownego rozpatrzenia",

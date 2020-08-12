@@ -61,7 +61,7 @@
     import Header from "../../Header";
     import CalendarDisplay from "./CalendarDisplay";
     import AlertTemplate from "../../AlertTemplate";
-    import {state} from "../../../core/AlertMessage";
+    import {globalStateAlert} from "../../../core/AlertMessage";
 
     export default {
         name: "Require",
@@ -112,7 +112,8 @@
                     if (data.errors)
                         this.errors = data.errors;
                     else {
-                        state.prepareMessageToAlert = this.$t('HR.consider.accepted')
+                        globalStateAlert.prepareMessageToAlert = this.$t('HR.consider.accepted');
+                        globalStateAlert.type = "";
                         this.$router.go(-1);
                     }
                 })

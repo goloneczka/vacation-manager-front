@@ -72,11 +72,11 @@
                     this.errors = data.errors;
                 else {
                     this.leaves = data
-                    workerService.getWorkerDetails(this.workerVarId).then(data => {
-                        if (data.errors)
-                            this.errors = data.errors;
+                    workerService.getWorkerDetails(this.workerVarId).then(data1 => {
+                        if (data1.errors)
+                            this.errors = data1.errors;
                         else
-                            this.vars = data
+                            this.vars = data1
                     })
                     this.leavesDate = data
                         .filter(paidLeave => paidLeave.status !== LEAVE_STATUS.REJECTED)

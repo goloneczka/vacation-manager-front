@@ -1,10 +1,11 @@
 import {LEAVE_STATUS} from "./Enums";
 
 export function prepareApexSeries(data, countFreeDays ) {
+    const annualData = data.filter(t => new Date().getFullYear() === new Date(t.endDate).getFullYear())
     const series = []
-    const acceptedValues = data.filter(acc => acc.status === LEAVE_STATUS.ACCEPTED)
+    const acceptedValues = annualData.filter(acc => acc.status === LEAVE_STATUS.ACCEPTED)
         .reduce((prev, curr) => { return prev + curr.days} , 0)
-    const newValues = data.filter(acc => acc.status === LEAVE_STATUS.NEW)
+    const newValues = annualData.filter(acc => acc.status === LEAVE_STATUS.NEW)
         .reduce((prev, curr) => { return prev + curr.days} , 0)
 
     series.push({
@@ -19,7 +20,7 @@ export function prepareApexSeries(data, countFreeDays ) {
 
     series.push({
         name: 'Odrzucone',
-        data: [data.filter(acc => acc.status === LEAVE_STATUS.REJECTED)
+        data: [annualData.filter(acc => acc.status === LEAVE_STATUS.REJECTED)
             .reduce((prev, curr) => { return prev + curr.days} , 0)]
     })
 

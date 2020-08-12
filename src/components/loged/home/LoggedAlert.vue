@@ -1,31 +1,35 @@
 <template>
     <div >
-        <AlertTemplate :message="message" :type="'success'"/>
+        <AlertTemplate :message="message" :type="type"/>
     </div>
 </template>
 
 <script>
     import AlertTemplate from "../../AlertTemplate";
-    import {state} from "../../../core/AlertMessage";
+    import {globalStateAlert} from "../../../core/AlertMessage";
 
     export default {
         name: "LoggedAlert",
         components: {AlertTemplate},
         data () {
             return {
-                state
+                globalStateAlert
             }
         },
         mounted() {
             this.$root.$on("clearMessage", () => {
-                state.prepareMessageToAlert = '';
+                globalStateAlert.prepareMessageToAlert = "";
+                globalStateAlert.type = "";
             })
         },
         computed: {
             message() {
-                return this.state.prepareMessageToAlert
+                return this.globalStateAlert.prepareMessageToAlert
+            },
+            type() {
+                return this.globalStateAlert.type
             }
-        },
+        }
     }
 
 </script>
