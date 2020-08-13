@@ -20,7 +20,7 @@
                     </button>
                 </div>
                 <div class="col-md-3 ml-5 grid-box" v-if="Object.keys(vars).length !== 0">
-                    <WorkerVars :company-leaves="companyLeaves" :vars="vars"/>
+                    <VarsInfo :company-leaves="companyLeaves" :vars="vars"/>
                 </div>
             </div>
         </div>
@@ -30,14 +30,14 @@
 
 <script>
     import {enterpriseService, leaveService, workerService} from "../../../App";
-    import WorkerVars from "./WorkerVars";
     import CustomApexBarChartWorker from "./CustomApexBarChartWorker";
     import {LEAVE_STATUS} from "../../../core/Enums";
     import AddPaidLeave from "./AddPaidLeave";
+    import VarsInfo from "../shared/VarsInfo";
 
     export default {
         name: "WorkerInfo",
-        components: {AddPaidLeave, CustomApexBarChartWorker, WorkerVars},
+        components: {VarsInfo, AddPaidLeave, CustomApexBarChartWorker},
         props: ["companyName", "email", "role", "workerVarId"],
         data() {
             return {

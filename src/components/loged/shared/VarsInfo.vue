@@ -1,8 +1,13 @@
 <template>
     <div>
-        <div class="form-group row">
+        <div class="form-group row" v-if="employeeName">
             <label> Pracownik </label>
             <input v-model="employeeName" :disabled="true" type="text"
+                   class="form-control"/>
+        </div>
+        <div class="form-group row" v-if="companyLeaves">
+            <label> Dni urlopowe w firmie </label>
+            <input v-model="companyLeaves" :disabled="true" type="text"
                    class="form-control"/>
         </div>
         <div class="form-group row">
@@ -36,8 +41,8 @@
 
 <script>
     export default {
-        name: "EmployeeVarsInfo",
-        props: ["vars", "employeeName", "isEdit"],
+        name: "VarsInfo",
+        props: ["vars", "employeeName", "companyLeaves" ],
 
         computed: {
             freeWithSeniority: {
