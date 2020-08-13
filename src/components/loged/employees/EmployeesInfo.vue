@@ -25,9 +25,11 @@
                             <td>{{item.hired}}</td>
                             <td>
                                 <button type="button" class="btn btn-outline-info btn-sm "
-                                        @click="updateVars(item)">Inf</button>
+                                        @click="updateVars(item)">Inf
+                                </button>
                                 <button type="button" class="pl-1 btn btn-outline-dark btn-sm "
-                                @click="navigate(item)">Edt</button>
+                                        @click="navigate(item)">Edt
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -39,10 +41,10 @@
                     </div>
                 </div>
                 <div class="col-md-3 ml-5 grid-box" v-if="Object.keys(vars).length !== 0">
-                    <EmployeeVarsInfo :vars="vars" :employee-name="selected.name" :is-edit="false"/>
+                    <VarsInfo :vars="vars" :employee-name="selected.name"/>
                 </div>
                 <div>
-                    <AddEmployee :company-id="companyId" />
+                    <AddEmployee :company-id="companyId"/>
                 </div>
             </div>
 
@@ -55,14 +57,14 @@
 <script>
     import {enterpriseService, workerService} from "../../../App";
     import {ROLES} from "../../../core/Enums";
-    import EmployeeVarsInfo from "./EmployeeVarsInfo";
+    import VarsInfo from "../shared/VarsInfo";
     import CustomApexBarChart from "./CustomApexBarChart";
     import {routesNames} from "../../../routes";
     import AddEmployee from "./AddEmployee";
 
     export default {
         name: "EmployeesInfo",
-        components: {AddEmployee, CustomApexBarChart, EmployeeVarsInfo},
+        components: {AddEmployee, CustomApexBarChart, VarsInfo},
         props: ["companyId", "companyName", "role"],
         data() {
             return {
@@ -117,8 +119,11 @@
             updateVars(item) {
                 this.selected = item;
             },
-            navigate(item){
-                this.$router.push({name: routesNames.employeeSettName, params: { enterpriseId: this.companyId, email: item.email}});
+            navigate(item) {
+                this.$router.push({
+                    name: routesNames.employeeSettName,
+                    params: {enterpriseId: this.companyId, email: item.email}
+                });
             }
         }
     }

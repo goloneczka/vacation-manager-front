@@ -162,7 +162,7 @@
             handleSubmit() {
                 const that = this;
                 const p1 = new Promise((resolve) => {
-                    this.resolvePromise(() => workerService.setWorkerDetails(that.employee.employeeVarsId, that.vars),
+                    this.resolvePromise(() => workerService.setWorkerDetails(that.email, that.HR.enterpriseName, that.vars),
                         that.isStateVarChanged, resolve)
                 })
                 const p2 = new Promise((resolve) => {
@@ -170,8 +170,8 @@
                         that.isStateChanged, resolve)
                 })
                 Promise.all([p1, p2]).then(() => {
-                    globalStateAlert.prepareMessageToAlert = "Dane pracownika zostały zaktualizowane";
                     globalStateAlert.type = "success";
+                    globalStateAlert.prepareMessageToAlert = "Dane pracownika zostały zaktualizowane";
                     this.$router.go(-1);
 
                 })

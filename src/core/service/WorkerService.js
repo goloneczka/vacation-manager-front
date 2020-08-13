@@ -32,8 +32,8 @@ export default class WorkerService {
         return this.httpRequest.get(`workers/employee/${workerVarsId}`)
     }
 
-    setWorkerDetails(workerVarsId, data){
-        return this.httpRequest.put(`workers/employee/${workerVarsId}`, data);
+    setWorkerDetails(workerVarsId, enterprise, data){
+        return this.httpRequest.put(`workers/employee/${workerVarsId}/${enterprise}`, data);
     }
 
 

@@ -112,8 +112,8 @@
                     if (data.errors)
                         this.errors = data.errors;
                     else {
+                        globalStateAlert.type = "success";
                         globalStateAlert.prepareMessageToAlert = this.$t('HR.consider.accepted');
-                        globalStateAlert.type = "";
                         this.$router.go(-1);
                     }
                 })
