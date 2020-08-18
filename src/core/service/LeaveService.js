@@ -1,4 +1,4 @@
-import {formatDate, countWorkDays} from "../Formatter";
+import {formatDate} from "../Formatter";
 import {LEAVE_STATUS, ROLES} from "../Enums";
 
 export default class LeaveService {
@@ -14,7 +14,6 @@ export default class LeaveService {
     addPaidLeave(paidLeave, company, mail, role){
         paidLeave.startDate = formatDate(paidLeave.startDate);
         paidLeave.endDate = formatDate(paidLeave.endDate);
-        paidLeave.days = countWorkDays(paidLeave.startDate, paidLeave.endDate);
         paidLeave.status = role === ROLES.CEO ? LEAVE_STATUS.ACCEPTED : LEAVE_STATUS.NEW;
 
         return this.httpRequest.post(`leaves/add/${mail}/${company}`, paidLeave);

@@ -35,7 +35,7 @@
         mounted() {
             const now = new Date();
             const start = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-            const end = new Date(now.getFullYear(), now.getMonth() +3, now.getDate() );
+            const end = new Date(now.getFullYear(), now.getMonth() + 6 , now.getDate() );
             this.validateDate = {
                 to:  start,
                 from:  end,

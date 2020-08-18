@@ -42,6 +42,11 @@
                                class="form-control"/>
                     </div>
                     <div class="form-group row">
+                        <label> Przechodni </label>
+                        <input v-model="vars.transitiveDays" :disabled="true" type="text"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group row">
                         <label> Dodatkowo przyznane dni na ten rok</label>
                         <input v-model="vars.annualExtraDays" :disabled="!isEditAble" type="text"
                                class="form-control"/>
@@ -106,7 +111,8 @@
                 vars: {
                     annualExtraDays: 0,
                     extraDays: 0,
-                    seniority: 0
+                    seniority: 0,
+                    transitiveDays: 0
                 },
                 seniorityDays: 0,
 
@@ -152,7 +158,6 @@
                             this.seniorityDays = this.vars.seniority >= 10 ? 6 : 0
                         }
                     })
-
                 }
             })
 
@@ -173,7 +178,6 @@
                     globalStateAlert.type = "success";
                     globalStateAlert.prepareMessageToAlert = "Dane pracownika zostały zaktualizowane";
                     this.$router.go(-1);
-
                 })
 
             },
