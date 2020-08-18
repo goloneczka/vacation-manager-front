@@ -1,40 +1,47 @@
 <template>
-    <div>
-        <div class="form-group row" v-if="employeeName">
-            <label> Pracownik </label>
+    <div class="fontSize">
+        <div class="form-group row justify-content-between" v-if="employeeName">
+            <label class="col-form-label ">Pracownik</label>
+            <div class="col-sm-9">
             <input v-model="employeeName" :disabled="true" type="text"
                    class="form-control"/>
+            </div>
         </div>
-        <div class="form-group row" v-if="companyLeaves">
-            <label> Dni urlopowe w firmie </label>
-            <input v-model="companyLeaves" :disabled="true" type="text"
-                   class="form-control"/>
+        <div class="form-group row justify-content-between" v-if="companyLeaves">
+            <label class="col-form-label "> Dni urlopowe w firmie </label>
+            <div class="col-sm-6">
+                <input v-model="companyLeaves" :disabled="true" type="text"
+                       class="form-control"/>
+            </div>
         </div>
-        <div class="form-group row">
-            <label> Staż pracy </label>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group mb-2 mr-sm-2">
-                        <input v-model="vars.seniority" :disabled="true" type="text"
-                               class="form-control"/>
-                        <div class="input-group-prepend">
-                            <div class="input-group-text ml-2">Lat</div>
-                        </div>
-                    </div>
-                </div>
+        <div class="form-group row justify-content-between" >
+            <label class="col-form-label"> Staż pracy </label>
+            <div class="col-sm-6">
+                <input v-model="seniorityWithYears" :disabled="true" type="text"
+                       class="form-control"/>
             </div>
             <small>{{$t('HR.freeWithSeniority')}}</small>
-
         </div>
-        <div class="form-group row">
-            <label> Dodatkowo przyznane dni </label>
-            <input v-model="freeWithSeniority" :disabled="true" type="text"
-                   class="form-control"/>
+        <div class="form-group row justify-content-between">
+            <label class="col-form-label"> Urlop przechodni </label>
+            <div class="col-sm-6">
+                <input v-model="vars.transitiveDays" :disabled="true" type="text"
+                       class="form-control"/>
+            </div>
         </div>
-        <div class="form-group row">
-            <label> Dodatkowo przyznane dni na ten rok</label>
-            <input v-model="vars.annualExtraDays" :disabled="true" type="text"
-                   class="form-control"/>
+        <div class="form-group row justify-content-between">
+            <label class="col-form-label"> Dodatkowe dni </label>
+            <div class="col-sm-6">
+                <input v-model="freeWithSeniority" :disabled="true" type="text"
+                       class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row justify-content-between">
+            <label class="col-form-label"> Dodatkowe dni na ten rok </label>
+            <div class="col-sm-4">
+                <input v-model="vars.annualExtraDays" :disabled="true" type="text"
+                       class="form-control"/>
+            </div>
         </div>
     </div>
 </template>
@@ -42,12 +49,17 @@
 <script>
     export default {
         name: "VarsInfo",
-        props: ["vars", "employeeName", "companyLeaves" ],
+        props: ["vars", "employeeName", "companyLeaves"],
 
         computed: {
             freeWithSeniority: {
                 get: function () {
                     return this.vars.seniority >= 10 ? this.vars.extraDays + 6 : this.vars.extraDays
+                },
+            },
+            seniorityWithYears: {
+                get: function () {
+                    return this.vars.seniority + " Lat"
                 },
             }
         },
@@ -56,5 +68,7 @@
 </script>
 
 <style scoped>
-
+    .fontSize {
+        font-size: 14px
+    }
 </style>
