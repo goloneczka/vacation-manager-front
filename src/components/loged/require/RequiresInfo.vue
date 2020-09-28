@@ -5,7 +5,7 @@
             <ul v-for="(item, index) in ActiveLeaves" v-bind:key="index"
                 class="list-group" v-on:click="selectedLeave(item)">
                 <li class="list-group-item list-group-item-success list-group-item-action">
-                    {{ item }}
+                    <ListItem :item="item" />
                 </li>
             </ul>
         </div>
@@ -13,10 +13,12 @@
             <H3> Rozsztrzygniete zgłoszenia </H3>
             <ul v-for="(item, index) in HistoryLeaves" v-bind:key="index" class="list-group">
                 <li class="list-group-item list-group-item-primary"
-                    v-if="item.status === statusAcc"> {{item}}
+                    v-if="item.status === statusAcc">
+                    <ListItem :item="item" />
                 </li>
                 <li class="list-group-item list-group-item-warning "
-                    v-if="item.status === statusRej"> {{item}}
+                    v-if="item.status === statusRej">
+                    <ListItem :item="item" />
                 </li>
             </ul>
         </div>
@@ -27,9 +29,11 @@
     import {leaveService} from "../../../App";
     import {routesNames} from "../../../routes";
     import {LEAVE_STATUS} from "../../../core/Enums";
+    import ListItem from "./ListItem";
 
     export default {
         name: "RequiresInfo",
+        components: {ListItem},
         props: ["companyId"],
         data() {
             return {
