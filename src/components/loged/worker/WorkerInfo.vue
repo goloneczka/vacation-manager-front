@@ -9,7 +9,9 @@
                 <div class="col-md-8">
                         <ul v-for="(item, index) in leaves" v-bind:key="index" class="list-group">
                             <li class="list-group-item list-group-item-primary"
-                                v-if="item.status === statusAcc"> {{item}} </li>
+                                v-if="item.status === statusAcc">
+                                <ListItem :item="item" />
+                            </li>
                             <li class="list-group-item list-group-item-success"
                                 v-if="item.status === statusNew"> {{item}} </li>
                             <li class="list-group-item list-group-item-warning "
@@ -34,10 +36,11 @@
     import {LEAVE_STATUS} from "../../../core/Enums";
     import AddPaidLeave from "./AddPaidLeave";
     import VarsInfo from "../shared/VarsInfo";
+    import ListItem from "./ListItem";
 
     export default {
         name: "WorkerInfo",
-        components: {VarsInfo, AddPaidLeave, CustomApexBarChartWorker},
+        components: {ListItem, VarsInfo, AddPaidLeave, CustomApexBarChartWorker},
         props: ["companyName", "email", "role", "workerVarId"],
         data() {
             return {

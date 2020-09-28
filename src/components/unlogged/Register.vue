@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Header :text="$t('registerForm.form')"/>
+        <Header :text="$t('registerForm.form')" />
         <div class="pr-5 pl-5 text-left">
             <div v-for="(error, index) in errors" v-bind:key="index">
                 <AlertTemplate :message="error" :type="'danger'"/>
@@ -79,8 +79,6 @@
                         }
                     });
                 e.preventDefault();
-
-                // TODO CO TO ROBI ?
             }
         }
     }
