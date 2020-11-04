@@ -96,7 +96,7 @@
     export default {
         name: "EmployeeSettings",
         components: {Header, AlertTemplate},
-        props: ["email", "enterpriseId"],
+        props: ["email", "enterpriseName"],
         data() {
             return {
                 HR: {},

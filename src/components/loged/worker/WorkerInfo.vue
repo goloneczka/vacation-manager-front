@@ -13,9 +13,13 @@
                                 <ListItem :item="item" />
                             </li>
                             <li class="list-group-item list-group-item-success"
-                                v-if="item.status === statusNew"> {{item}} </li>
+                                v-if="item.status === statusNew">
+                                <ListItem :item="item" />
+                            </li>
                             <li class="list-group-item list-group-item-warning "
-                                v-if="item.status === statusRej"> {{item}} </li>
+                                v-if="item.status === statusRej">
+                                <ListItem :item="item" />
+                            </li>
                         </ul>
                     <button type="button" class="btn btn-outline-success"
                             v-b-modal.modal-leave> {{$t('EMPLOYEE.newLeave.title')}}
@@ -75,6 +79,7 @@
                     this.errors = data.errors;
                 else {
                     this.leaves = data
+                    console.log(this.leaves)
                     workerService.getWorkerDetails(this.workerVarId).then(data1 => {
                         if (data1.errors)
                             this.errors = data1.errors;

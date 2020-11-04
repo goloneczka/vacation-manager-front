@@ -16,14 +16,10 @@ export default class EnterpriseService {
         return this.httpRequest.post("enterprises/enterprise", registerForm)
     }
 
-    confirmCompanyAndCeo(mail, enterpriseId){
-        return this.httpRequest.put(`enterprises/confirm/${mail}/${enterpriseId}`)
+    confirmCompanyAndCeo(mail, enterpriseName){
+        return this.httpRequest.put(`enterprises/confirm/${mail}/${enterpriseName}`)
     }
 
-
-    getCompanyById(enterpriseId){
-        return this.httpRequest.get(`enterprises/enterprise/${enterpriseId}`)
-    }
 
     getCompanyByName(enterpriseName){
         return this.httpRequest.get(`enterprises/${enterpriseName}`)

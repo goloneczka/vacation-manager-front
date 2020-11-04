@@ -34,7 +34,7 @@
     export default {
         name: "RequiresInfo",
         components: {ListItem},
-        props: ["companyId"],
+        props: ["companyName"],
         data() {
             return {
                 ActiveLeaves: [],
@@ -53,13 +53,13 @@
             }
         },
         mounted() {
-            leaveService.getEmployeesLeavesInCompany(this.companyId).then((data) => {
+            leaveService.getByCompanyName(this.companyName).then((data) => {
                 if (data.errors)
                     this.errors = data.errors;
                 else
                     this.ActiveLeaves = data
             })
-            leaveService.getHistoryLeavesInCompany(this.companyId, 0).then((data) => {
+            leaveService.getByCompanyNameAndResolved(this.companyName,  0).then((data) => {
                 if (data.errors)
                     this.errors = data.errors;
                 else
@@ -70,7 +70,7 @@
             selectedLeave(leave) {
                 this.$router.push({
                     name: routesNames.requireName,
-                    params: {enterpriseId: this.companyId, id: leave.id}
+                    params: {enterpriseName: this.companyName, id: leave.id}
                 });
             }
         }

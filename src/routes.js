@@ -11,14 +11,14 @@ export const routesNames = {
     home: '/',
     registerCompany: '/registerCompany',
     login: '/logging',
-    newAccount: '/newAccount/:email/:enterpriseId',
-    newAccountEmployee: '/newAccountEmployee/:email/:enterpriseId',
+    newAccount: '/newAccount/:email/:enterpriseName',
+    newAccountEmployee: '/newAccountEmployee/:email/:enterpriseName',
 
     loggedEmployee: '/employee/home',
     loggedHR: '/HR/home',
     loggedCEO: '/CEO/home',
-    require: '/HR/require/:enterpriseId/:id', requireName: 'requireLeave',
-    employeeSett: '/HR/empSettings/:enterpriseId/:email', employeeSettName: 'employeeSett'
+    require: '/HR/require/:enterpriseName/:id', requireName: 'requireLeave',
+    employeeSett: '/HR/empSettings/:enterpriseName/:email', employeeSettName: 'employeeSett'
 
 
 };

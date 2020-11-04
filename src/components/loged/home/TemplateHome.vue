@@ -8,9 +8,9 @@
                 <WorkerInfo v-if="selected.isWorkerInfo" :company-name="worker.enterpriseName"
                             :email="worker.email" :role="worker.roles[0].name" :worker-var-id="worker.employeeVarsId"/>
                 <timetableInfo v-if="selected.isTimetableInfo"/>
-                <RequiresInfo v-if="selected.isRequiresInfo" :company-id="worker.enterpriseId"/>
-                <EmployeesInfo v-if="selected.isEmployeesInfo" :company-id="worker.enterpriseId"
-                               :company-name="worker.enterpriseName" :role="worker.roles[0].name"/>
+                <RequiresInfo v-if="selected.isRequiresInfo" :company-name="worker.enterpriseName"/>
+                <EmployeesInfo v-if="selected.isEmployeesInfo" :company-name="worker.enterpriseName"
+                               :role="worker.roles[0].name"/>
                 <CompanySettings v-if="selected.isCompanySettings"
                                  :worker="worker.name" :company-name="worker.enterpriseName"/>
             </div>
