@@ -66,7 +66,7 @@
     export default {
         name: "Require",
         components: {AlertTemplate, CalendarDisplay, Header},
-        props: ["id", "enterpriseId"],
+        props: ["id", "enterpriseName"],
         data() {
             return {
                 HR: {},

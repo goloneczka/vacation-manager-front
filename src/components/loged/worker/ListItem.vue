@@ -1,5 +1,5 @@
 <template>
-    <q> Wniosek o urlop na <b>{{item.startDate}} ; {{item.startDate}}</b> został <b> {{status}} </b> </q>
+    <q> Wniosek o urlop na <b>{{item.startDate}} ; {{item.endDate}}</b> został <b> {{status}} </b> </q>
 </template>
 
 <script>

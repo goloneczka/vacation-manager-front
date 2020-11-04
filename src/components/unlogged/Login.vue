@@ -34,7 +34,7 @@
 </template>
 <script>
 
-    import {workerService, authorizationStorage, enterpriseService} from '../../App'
+    import {workerService, authorizationStorage} from '../../App'
     import Header from "../Header";
     import AlertTemplate from "../AlertTemplate";
     import {routesNames} from "../../routes";
@@ -58,30 +58,20 @@
                 workerService.getWorker(this.login, this.enterprise).then(response => {
                     if (response.errors) {
                         this.error = response.errors;
-                        authorizationStorage.removeAuthorization()
+                        authorizationStorage.removeAuthorization();
                     } else {
-                        enterpriseService.getCompanyById(response.enterpriseId).then((response1) => {
-                            if (response.errors) {
-                                this.error = response.errors;
-                                authorizationStorage.removeAuthorization()
-                            } else {
-                                authorizationStorage.setWorkerAuthorization(JSON.stringify({
-                                    ...response,
-                                    enterpriseName: response1.enterpriseName
-                                }))
-                                switch (response.roles[0].name) {
-                                    case ROLES.CEO:
-                                        this.$router.push(routesNames.loggedCEO);
-                                        break;
-                                    case ROLES.HR:
-                                        this.$router.push(routesNames.loggedHR);
-                                        break;
-                                    case ROLES.EMPLOYEE:
-                                        this.$router.push(routesNames.loggedEmployee);
-                                        break;
-                                }
-                            }
-                        })
+                        authorizationStorage.setWorkerAuthorization(JSON.stringify(response));
+                        switch (response.roles[0].name) {
+                            case ROLES.CEO:
+                                this.$router.push(routesNames.loggedCEO);
+                                break;
+                            case ROLES.HR:
+                                this.$router.push(routesNames.loggedHR);
+                                break;
+                            case ROLES.EMPLOYEE:
+                                this.$router.push(routesNames.loggedEmployee);
+                                break;
+                        }
                     }
                 })
             },

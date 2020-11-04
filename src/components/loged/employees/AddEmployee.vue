@@ -44,7 +44,7 @@
     export default {
         name: "AddEmployee",
         components: {AlertTemplate},
-        props: ["companyId"],
+        props: ["companyName"],
         data() {
             return {
                 newEmployeeForm: {
@@ -74,7 +74,7 @@
             },
             handleSubmit() {
                 this.errorsForm = [];
-                workerService.addEmployee(this.newEmployeeForm, this.companyId).then(data => {
+                workerService.createEmployee(this.newEmployeeForm, this.companyName).then(data => {
                     if (data.errors)
                         this.errorsForm = data.errors;
                     else {

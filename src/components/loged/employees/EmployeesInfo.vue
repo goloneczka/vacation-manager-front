@@ -44,7 +44,7 @@
                     <VarsInfo :vars="vars" :employee-name="selected.name"/>
                 </div>
                 <div>
-                    <AddEmployee :company-id="companyId"/>
+                    <AddEmployee :company-name="companyName"/>
                 </div>
             </div>
 
@@ -65,7 +65,7 @@
     export default {
         name: "EmployeesInfo",
         components: {AddEmployee, CustomApexBarChart, VarsInfo},
-        props: ["companyId", "companyName", "role"],
+        props: [ "companyName", "role"],
         data() {
             return {
                 errors: [],
@@ -106,7 +106,7 @@
                     this.companyLeaves = data.freeDays;
                 }
             })
-            workerService.getEmployeesInCompany(this.companyId).then((data) => {
+            workerService.getEmployeesByCompanyName(this.companyName).then((data) => {
                 if (data.errors)
                     this.errors = data.errors;
                 else {
@@ -122,7 +122,7 @@
             navigate(item) {
                 this.$router.push({
                     name: routesNames.employeeSettName,
-                    params: {enterpriseId: this.companyId, email: item.email}
+                    params: {enterpriseName: this.companyName, email: item.email}
                 });
             }
         }

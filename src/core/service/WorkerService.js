@@ -13,19 +13,19 @@ export default class WorkerService {
     }
 
 
-    getEmployeesInCompany(companyId){
-        return this.httpRequest.get(`workers/HR/${companyId}`)
+    getEmployeesByCompanyName(companyName){
+        return this.httpRequest.get(`workers/HR/${companyName}`)
     }
 
-    addEmployee(employee, companyId){
+    createEmployee(employee, companyName){
         return this.httpRequest.post(`workers/CEO/add`, {
             ...employee,
-            enterpriseId : companyId
+            enterpriseName : companyName
         })
     }
 
-    confirmEmployee(mail, enterpriseId){
-        return this.httpRequest.put(`workers/confirm/${mail}/${enterpriseId}`)
+    confirmEmployee(mail, enterpriseName){
+        return this.httpRequest.put(`workers/confirm/${mail}/${enterpriseName}`)
     }
 
     getWorkerDetails(workerVarsId){

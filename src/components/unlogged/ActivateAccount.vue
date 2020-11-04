@@ -13,7 +13,7 @@
     export default {
         name: "ActivateAccount",
         components: {AlertTemplate, Header},
-        props: ["email", "enterpriseId"],
+        props: ["email", "enterpriseName"],
         data() {
             return {
                 type: '',
@@ -21,7 +21,7 @@
             }
         },
         mounted() {
-            enterpriseService.confirmCompanyAndCeo(this.email, this.enterpriseId ).then(response => {
+            enterpriseService.confirmCompanyAndCeo(this.email, this.enterpriseName ).then(response => {
                 if(response.errors){
                     this.type = 'danger'
                     this.message = response.errors[0]
