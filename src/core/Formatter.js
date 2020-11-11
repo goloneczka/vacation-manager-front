@@ -4,6 +4,10 @@ export function formatDate(date) {
     return moment(date).format('YYYY-MM-DD');
 }
 
+export function subDays(date, days) {
+    return moment(date).add(-days, 'days').format('YYYY-MM-DD');
+}
+
 export function countFreeDays(company, vars) {
     let freeDays = company;
     for (const prop in vars)

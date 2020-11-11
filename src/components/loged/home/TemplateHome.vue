@@ -7,7 +7,7 @@
                 <LoggedAlert />
                 <WorkerInfo v-if="selected.isWorkerInfo" :company-name="worker.enterpriseName"
                             :email="worker.email" :role="worker.roles[0].name" :worker-var-id="worker.employeeVarsId"/>
-                <timetableInfo v-if="selected.isTimetableInfo"/>
+                <timetableInfo v-if="selected.isTimetableInfo" :company-name="worker.enterpriseName"/>
                 <RequiresInfo v-if="selected.isRequiresInfo" :company-name="worker.enterpriseName"/>
                 <EmployeesInfo v-if="selected.isEmployeesInfo" :company-name="worker.enterpriseName"
                                :role="worker.roles[0].name"/>
@@ -25,7 +25,7 @@
     import Sidebar from "./Sidebar";
     import WorkerInfo from "../worker/WorkerInfo";
     import CompanySettings from "../settings/CompanySettings";
-    import TimetableInfo from "../TimetableInfo";
+    import TimetableInfo from "../timetable/TimetableInfo";
     import EmployeesInfo from "../employees/EmployeesInfo";
     import RequiresInfo from "../require/RequiresInfo";
     import LoggedAlert from "./LoggedAlert";

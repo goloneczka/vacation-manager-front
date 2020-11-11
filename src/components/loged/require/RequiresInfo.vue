@@ -56,8 +56,9 @@
             leaveService.getByCompanyName(this.companyName).then((data) => {
                 if (data.errors)
                     this.errors = data.errors;
-                else
+                else {
                     this.ActiveLeaves = data
+                }
             })
             leaveService.getByCompanyNameAndResolved(this.companyName,  0).then((data) => {
                 if (data.errors)
