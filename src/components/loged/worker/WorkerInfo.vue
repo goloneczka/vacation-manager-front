@@ -79,7 +79,6 @@
                     this.errors = data.errors;
                 else {
                     this.leaves = data
-                    console.log(this.leaves)
                     workerService.getWorkerDetails(this.workerVarId).then(data1 => {
                         if (data1.errors)
                             this.errors = data1.errors;
