@@ -9,6 +9,9 @@ import {routes} from './routes'
 import {authorizationStorage} from "./App";
 import {AUTHORIZATION, ROLES} from "./core/Enums";
 import VueApexCharts from "vue-apexcharts";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faEdit, faInfo, faCode, faCloud, faLock } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.config.productionTip = false
 
@@ -16,6 +19,14 @@ Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VueApexCharts);
 Vue.component("apexchart", VueApexCharts);
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+library.add(faEdit)
+library.add(faInfo)
+library.add(faCode)
+library.add(faCloud)
+library.add(faLock)
+
+
 
 let router = new VueRouter({routes: routes});
 

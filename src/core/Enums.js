@@ -12,3 +12,9 @@ export const LEAVE_STATUS = {
     ACCEPTED : "ACCEPTED",
     REJECTED : "REJECTED"
 }
+
+export const PL_LEAVE_STATUS = {
+    NEW : "Nowe ",
+    ACCEPTED : "Zaakceptowane",
+    REJECTED : "Odrzucone"
+}

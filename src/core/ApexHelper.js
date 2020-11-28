@@ -1,4 +1,4 @@
-import {LEAVE_STATUS} from "./Enums";
+import {LEAVE_STATUS, PL_LEAVE_STATUS} from "./Enums";
 
 export function prepareApexSeries(data, countFreeDays) {
     const annualData = data.filter(t => new Date().getFullYear() === new Date(t.endDate).getFullYear())
@@ -50,7 +50,7 @@ export function prepareTimetableApexSeries(unresolvedLeaves, resolvedLeaves) {
             .map(tmp1 => {
                 let endDate = new Date(tmp1.endDate);
                 return {
-                    x: tmp1.status,
+                    x: PL_LEAVE_STATUS[tmp1.status],
                     y: [new Date(tmp1.startDate).getTime(),
                         endDate.setDate(endDate.getDate()+1)]
                 }

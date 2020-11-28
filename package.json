@@ -14,21 +14,24 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/vue-fontawesome": "^2.0.0",
     "@vue/cli-plugin-babel": "^4.4.0",
     "@vue/cli-plugin-eslint": "^4.4.0",
     "@vue/cli-service": "^4.4.0",
+    "apexcharts": "^3.19.3",
     "babel-eslint": "^10.1.0",
     "bootstrap-vue": "^2.15.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "moment": "^2.27.0",
+    "vue-apexcharts": "^1.6.0",
     "vue-flash-message": "^0.7.2",
     "vue-i18n": "^8.18.2",
     "vue-router": "^3.3.4",
     "vue-template-compiler": "^2.6.11",
-    "vuejs-datepicker": "^1.6.2",
-    "apexcharts": "^3.19.3",
-    "vue-apexcharts": "^1.6.0"
+    "vuejs-datepicker": "^1.6.2"
   },
   "eslintConfig": {
     "root": true,
