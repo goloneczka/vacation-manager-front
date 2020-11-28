@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div >
         <transition-group name="fade" tag="div">
-            <div v-for="i in [currentIndex]" :key="i">
+            <div v-for="i in [currentIndex]" :key="i" style="height: 550px">
                 <img v-bind:src="require(`../../assets/${currentImg}.png`)" />
             </div>
         </transition-group>
@@ -50,10 +50,11 @@
         methods: {
             startSlide: function() {
                 clearInterval(this.timer)
-                this.timer = setInterval(this.change.bind(null, 1), 7000)
+                this.timer = setInterval(this.change.bind(null, 1), 6000)
             },
 
             change: function(n) {
+
                 if(this.currentIndex + n === this.images.length)
                     this.currentIndex = 0;
                 else if (this.currentIndex + n === -1)

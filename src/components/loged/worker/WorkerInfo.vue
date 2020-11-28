@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-8">
                         <ul v-for="(item, index) in leaves" v-bind:key="index" class="list-group">
-                            <li class="list-group-item list-group-item-primary"
+                            <li class="list-group-item list-group-item-primary mb-2"
                                 v-if="item.status === statusAcc">
                                 <ListItem :item="item" />
                             </li>
@@ -21,7 +21,7 @@
                                 <ListItem :item="item" />
                             </li>
                         </ul>
-                    <button type="button" class="btn btn-outline-success"
+                    <button type="button" class="btn btn-outline-success mt-4"
                             v-b-modal.modal-leave> {{$t('EMPLOYEE.newLeave.title')}}
                     </button>
                 </div>

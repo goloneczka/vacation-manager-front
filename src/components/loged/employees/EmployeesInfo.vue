@@ -24,11 +24,13 @@
                             <td>{{item.occupation}}</td>
                             <td>{{item.hired}}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-info btn-sm "
-                                        @click="updateVars(item)">Inf
+                                <button type="button" class="btn btn-outline-info btn-sm  mr-1"
+                                        @click="updateVars(item)">
+                                    <font-awesome-icon icon="info" />
                                 </button>
-                                <button type="button" class="pl-1 btn btn-outline-dark btn-sm "
-                                        @click="navigate(item)">Edt
+                                <button type="button" class="btn btn-outline-dark btn-sm "
+                                        @click="navigate(item)">
+                                    <font-awesome-icon icon="edit" />
                                 </button>
                             </td>
                         </tr>

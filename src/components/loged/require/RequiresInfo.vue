@@ -1,22 +1,24 @@
 <template>
-    <div>
-        <div>
-            <H3> Aktywne zgłoszenia </H3>
+    <div id="block-container">
+        <div id="active">
+            <H3 class="pb-2"> Aktywne zgłoszenia </H3>
+            <hr/>
             <ul v-for="(item, index) in ActiveLeaves" v-bind:key="index"
                 class="list-group" v-on:click="selectedLeave(item)">
-                <li class="list-group-item list-group-item-success list-group-item-action">
+                <li class="list-group-item list-group-item-success list-group-item-action mb-2">
                     <ListItem :item="item" />
                 </li>
             </ul>
         </div>
-        <div>
-            <H3> Rozsztrzygniete zgłoszenia </H3>
+        <div id="inactive">
+            <H3 class="pb-2"> Rozsztrzygniete zgłoszenia </H3>
+            <hr/>
             <ul v-for="(item, index) in HistoryLeaves" v-bind:key="index" class="list-group">
-                <li class="list-group-item list-group-item-primary"
+                <li class="list-group-item list-group-item-primary mb-2"
                     v-if="item.status === statusAcc">
                     <ListItem :item="item" />
                 </li>
-                <li class="list-group-item list-group-item-warning "
+                <li class="list-group-item list-group-item-warning mb-2"
                     v-if="item.status === statusRej">
                     <ListItem :item="item" />
                 </li>
@@ -79,5 +81,24 @@
 </script>
 
 <style scoped>
+    #active, #inactive{
+        word-wrap: break-word;         /* All browsers since IE 5.5+ */
+        overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
+        width: 100%;
+    }
+    #active{
+        padding-right: 5px;
+    }
+    #active li:hover{
+        cursor: pointer;
+    }
+    #inactive {
+        padding-left: 5px;
+    }
+
+    #block-container{
+        display: flex;
+        font-size: 15px;
+    }
 
 </style>
