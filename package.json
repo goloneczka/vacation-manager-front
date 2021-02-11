@@ -20,7 +20,7 @@
     "@vue/cli-plugin-babel": "^4.4.0",
     "@vue/cli-plugin-eslint": "^4.4.0",
     "@vue/cli-service": "^4.4.0",
-    "apexcharts": "^3.19.3",
+    "apexcharts": "^3.24.0",
     "babel-eslint": "^10.1.0",
     "bootstrap-vue": "^2.15.0",
     "eslint": "^6.7.2",
