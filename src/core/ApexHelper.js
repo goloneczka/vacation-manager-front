@@ -1,12 +1,14 @@
 import {LEAVE_STATUS, PL_LEAVE_STATUS} from "./Enums";
 
 export function prepareApexSeries(data, countFreeDays) {
-    const annualData = data.filter(t => new Date().getFullYear() === new Date(t.endDate).getFullYear())
-    const series = []
+    // const annualData = data.filter(t => new Date().getFullYear() === new Date(t.endDate).getFullYear());
+    const annualData = data;
+    console.log(annualData);
+    const series = [];
     const acceptedValues = annualData.filter(acc => acc.status === LEAVE_STATUS.ACCEPTED)
         .reduce((prev, curr) => {
             return prev + curr.days
-        }, 0)
+        }, 0);
     const newValues = annualData.filter(acc => acc.status === LEAVE_STATUS.NEW)
         .reduce((prev, curr) => {
             return prev + curr.days
